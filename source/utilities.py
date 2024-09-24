@@ -14,3 +14,7 @@ def get_angle_between_two_vectors(vector_one, vector_two) -> float:
 def get_magnitude_of_vector(vector: tuple) -> float:
     magnitude = np.sqrt(np.square(vector[0]) + np.square(vector[1]) + np.square(vector[2]))
     return magnitude
+
+
+# Trevor suggested that we make a conversion function that takes any 
+# form of an array and converts it to numpy or something that we choose
