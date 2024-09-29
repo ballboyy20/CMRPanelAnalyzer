@@ -1,16 +1,24 @@
 from source.Panel import Panel
-from typing import List
+from typing import List, Tuple, Union
 import os
 from source.utilities import * 
 
 
 class Array:
-    def __init__(self) -> None:
+    def __init__(self, json_filename: str = None, json_location_directory: str = None,) -> None:
         self.list_of_panels: List[Panel] = [] # Initialize an empty list of type Panel
         
+        # If a JSON filename is provided, load panels from the JSON file to this instance of Array
+        if json_filename:
+            self.json_to_panels(json_filename, json_location_directory)
     
     def add_panel(self, panel: Panel) -> None:
-        self.list_of_panels.append(panel) # Add a Panel instance to the list of Panels
+        self.list_of_panels.append(panel) # Add a Panel obeject to the list of Panels
+
+    def add_raw_panel(self, name: str, vector: Union[np.array, Tuple[float, float, float]], 
+                 centroid: Union[np.array,Tuple[float, float, float]]):
+        raw_panel = Panel(name, vector, centroid)
+        self.add_panel(raw_panel)
 
     def count_panels(self) -> int:
         return len(self.list_of_panels)
