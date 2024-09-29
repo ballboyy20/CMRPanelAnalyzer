@@ -22,6 +22,6 @@ class Panel:
     def get_data_as_dict(self) -> dict:
         return {
             'name': self.panel_name,
-            'normal vector': self.normal_unit_vector,
-            'centroid': self.panel_centroid
+            'normal vector': self.normal_unit_vector.tolist(),  # Convert numpy array to list so that json likes it
+            'centroid': self.panel_centroid.tolist()            # Convert numpy array to list so that json likes it
         }
