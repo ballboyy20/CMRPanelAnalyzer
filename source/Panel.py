@@ -18,3 +18,10 @@ class Panel:
     
     def __getattribute__(self, centroid: np.array) -> Any:
         return super().__getattribute__(centroid)
+    
+    def get_data_as_dict(self) -> dict:
+        return {
+            'name': self.panel_name,
+            'normal vector': self.normal_unit_vector,
+            'centroid': self.panel_centroid
+        }
