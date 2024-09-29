@@ -1,6 +1,7 @@
 import numpy as np
 import random
 from source.Panel import Panel
+import json
 
 def get_angle_between_two_vectors(vector_one, vector_two) -> float:
     dot_product = np.dot(vector_two, vector_one)
@@ -32,6 +33,18 @@ def create_random_panel() -> Panel:
     random_panel = Panel(normal_vector, centroid, panel_name)
 
     return random_panel
+
+def write_list_dicts_to_json(list_of_dicts: dict, filename: str) -> None: #NOT TESTED
+    
+    with open(filename, 'w') as json_file:
+                json.dump(list_of_dicts, json_file, indent=4)
+
+def get_dict_from_json(json_filename: str) -> dict: #NOT TESTED
+    
+    with open(json_filename, 'r') as json_file:
+        data_from_json = json.load(json_file)
+
+    return data_from_json
 
 # Trevor suggested that we make a conversion function that takes any 
 # form of an array and converts it to numpy or something that we choose
