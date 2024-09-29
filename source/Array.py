@@ -1,6 +1,6 @@
-from Panel import Panel
+from source.Panel import Panel
 from typing import List
-from utilities import *                 # the * imports all of this functions from utilites
+from source.utilities import *                 # the * imports all of this functions from utilites
 
 
 class Array:
@@ -10,6 +10,9 @@ class Array:
     
     def add_panel(self, panel: Panel) -> None:
         self.list_of_panels.append(panel) # Add a Panel instance to the list of Panels
+
+    def count_panels(self) -> int:
+        return len(self.list_of_panels)
 
     def compare_two_panels(self, first_panel_to_be_compared: int, second_panel_to_be_compared: int) -> float: # TODO make this do something with two panels
         
