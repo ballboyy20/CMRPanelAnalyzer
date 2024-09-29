@@ -3,9 +3,8 @@ import numpy as np
 
 
 class Panel:
-    def __init__(self, vector: Union[np.array, Tuple[float, float, float]], 
-                 centroid: Union[np.array,Tuple[float, float, float]], 
-                 name: str) -> None:
+    def __init__(self, name: str, vector: Union[np.array, Tuple[float, float, float]], 
+                 centroid: Union[np.array,Tuple[float, float, float]]) -> None:
         self.normal_unit_vector = np.array(vector)
         self.panel_centroid = np.array(centroid)
         self.panel_name = name

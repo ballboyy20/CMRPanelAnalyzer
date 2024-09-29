@@ -39,7 +39,7 @@ class Array:
             panel_data_as_dicts.append(panel.get_data_as_dict())
 
         #TODO this function is kinda ugly, see what could be moved to utils
-        
+
         # If a directory is provided, join it with the filename, otherwise save in the package directory
         if json_save_directory:
             # Create the directory if it doesn't exist 
@@ -54,9 +54,16 @@ class Array:
 
 
 
-    def json_to_panels(self,json_filename: str) -> None:
+    def json_to_panels(self,json_filename: str, json_location_directory: str = None) -> None:
+        # If no directory is provided, use the current directory
+        if json_location_directory is None:
+            json_location_directory = os.getcwd()  # Get the current working directory
 
-        data_from_json = get_dict_from_json(json_filename)
+        # Construct the full path to the JSON file
+        full_path = os.path.join(json_location_directory, json_filename)
+
+        # Read data from the JSON file
+        data_from_json = get_dict_from_json(full_path)
 
         for panel_dict in data_from_json:
             # Extract the name, normal vector, and centroid from the json and create a new panel object with that data

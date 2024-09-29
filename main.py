@@ -15,3 +15,10 @@ test_array.add_panel(panel3)
 test_array.add_panel(panel2)
 
 test_array.panels_to_json('WORKING')
+
+
+new_array = Array()
+
+new_array.json_to_panels('WORKING')
+
+new_array.panels_to_json('compareme')
