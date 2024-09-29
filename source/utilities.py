@@ -18,6 +18,7 @@ def get_angle_between_two_vectors(vector_one, vector_two) -> float:
 def get_magnitude_of_vector(vector: tuple) -> float:
     magnitude = np.sqrt(np.square(vector[0]) + np.square(vector[1]) + np.square(vector[2]))
     return magnitude
+
 def create_random_panel() -> Panel:
     panel_name = "Random Panel"
 
@@ -35,12 +36,13 @@ def create_random_panel() -> Panel:
 
     return random_panel
 
-def write_list_dicts_to_json(list_of_dicts: dict, filename: str) -> None: #NOT TESTED
+def write_list_dicts_to_json(list_of_dicts: dict, filename: str) -> None: #NOT TESTED WITH PY TEST
     
     with open(filename, 'w') as json_file:
                 json.dump(list_of_dicts, json_file, indent=4)
 
-def get_dict_from_json(json_filename: str, directory: str = None) -> dict:
+def get_dict_from_json(json_filename: str, directory: str = None) -> dict: #NOT TESTED WITH PY TEST
+    
     # If a directory is provided, join it with the filename to create the full path
     if directory:
         file_path = os.path.join(directory, json_filename)

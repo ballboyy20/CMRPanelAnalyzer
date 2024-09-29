@@ -52,12 +52,10 @@ class Array:
         write_list_dicts_to_json(panel_data_as_dicts, file_path)
 
 
-
-
-    def json_to_panels(self,json_filename: str, json_location_directory: str = None) -> None:
-        # If no directory is provided, use the current directory
+    def json_to_panels(self, json_filename: str, json_location_directory: str = None) -> None:
+        # If no directory is provided, default to the source directory of this script
         if json_location_directory is None:
-            json_location_directory = os.getcwd()  # Get the current working directory
+            json_location_directory = os.path.dirname(os.path.abspath(__file__))  # Get the directory of the current script
 
         # Construct the full path to the JSON file
         full_path = os.path.join(json_location_directory, json_filename)
@@ -66,8 +64,8 @@ class Array:
         data_from_json = get_dict_from_json(full_path)
 
         for panel_dict in data_from_json:
-            # Extract the name, normal vector, and centroid from the json and create a new panel object with that data
-            new_panel_from_json = Panel(panel_dict['name'],panel_dict['normal vector'],panel_dict['centroid'])
+            # Extract the name, normal vector, and centroid from the JSON and create a new panel object with that data
+            new_panel_from_json = Panel(panel_dict['name'], panel_dict['normal vector'], panel_dict['centroid'])
 
             # Add the newly created panel to the list of panels attribute
             self.add_panel(new_panel_from_json)
