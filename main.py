@@ -1,7 +1,9 @@
 from source.Panel import Panel
 from source.Array import Array
 from source.utilities import *
+import numpy as np
+import numpy as np
 
-print("Hello world")
-print("This is going to analyze some scans :) ")
+print('hello world')
 
+create_random_plane(1111,1,20)

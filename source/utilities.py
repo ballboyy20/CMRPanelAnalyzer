@@ -1,6 +1,7 @@
 import numpy as np
-import random
+from typing import Optional
 from source.Panel import Panel
+import pyvista as pv
 import json
 import os
 
@@ -23,14 +24,14 @@ def create_random_panel() -> Panel:
     panel_name = "Random Panel"
 
     # Generate random normal vector with values between 0 and 10
-    normal_vector = (random.uniform(0.0, 10.0), 
-                     random.uniform(0.0, 10.0), 
-                     random.uniform(0.0, 10.0))
+    normal_vector = (np.random.uniform(0.0, 10.0), 
+                     np.random.uniform(0.0, 10.0), 
+                     np.random.uniform(0.0, 10.0))
     
     # Generate random centroid with values between 0 and 10
-    centroid = (random.uniform(0.0, 10.0), 
-                random.uniform(0.0, 10.0), 
-                random.uniform(0.0, 10.0))
+    centroid = (np.random.uniform(0.0, 10.0), 
+                np.random.uniform(0.0, 10.0), 
+                np.random.uniform(0.0, 10.0))
 
     random_panel = Panel(panel_name,normal_vector, centroid)
 
@@ -55,6 +56,73 @@ def get_dict_from_json(json_filename: str, directory: str = None) -> dict: #NOT 
         data_from_json = json.load(json_file)
 
     return data_from_json
+
+# TODO: Implement this function
+# This function is used by the 3DScan module various times, in various places, on both the point list as a whole and then on the individually grouped points, and this is here as a util
+def find_outliers(points: np.array, method: Optional[str] = 'trev_iter') -> np.array:
+    # This will take a 2d numpy array of points and use either ransac or Trevor's iterative method to generate a 1d map indicating which rows (representing points) in this collection are to be kept (False for outliers)
+    if method == 'trev_iter':
+        outlier_exclusion_map = remove_outliers_trev_iter(points)
+    elif method == 'ransac':
+        outlier_exclusion_map = remove_outliers_ransac(points)
+    elif method is None:
+        outlier_exclusion_map = np.full(points.shape[0], True)
+    else:
+        raise NotImplementedError
+    
+    return outlier_exclusion_map
+
+# TODO: Implement this function
+def remove_outliers_trev_iter(points: np.array) -> np.array:
+    pass
+
+# TODO: Implement this function
+def remove_outliers_ransac(points: np.array) -> np.array:
+    # randomly sample 3 point in the data set
+
+    # use those three points to calculate a plane equation ax + by + cz +d = 0
+
+    # Calculate distance from this plane to all points in data set
+
+    # count inliers
+
+    # if len(inliers) > len(best_inliers):
+        # best_inliers = inliers
+        #best_plane = (a,b,c,d)
+
+    pass
+
+def create_random_plane(total_number_points: int, z_value_range: int, x_y_value_range: int):
+
+    #this function creates a random plane
+    # you give it total amount of points, the ranges of z values, 
+    # and a different value for the range of x,y values 
+    # this makes it so you get a plane as opposed to like a cube or sphere or something weird
+     
+    list_of_random_3D_points = np.zeros((total_number_points,3))
+
+    for point in range(total_number_points):
+        random_x_value = np.random.uniform(-x_y_value_range,x_y_value_range)
+        random_y_value = np.random.uniform(-x_y_value_range,x_y_value_range)
+        random_z_value = np.random.uniform(-z_value_range,z_value_range)
+
+        random_point = (random_x_value,random_y_value,random_z_value)
+        list_of_random_3D_points[point, :] = random_point
+    plot_3d_points(list_of_random_3D_points)
+
+
+
+def plot_3d_points(points_to_be_plotted: np.array):
+
+    point_cloud = pv.PolyData(points_to_be_plotted)
+
+    # Step 3: Plot the point cloud
+    plotter = pv.Plotter()
+    plotter.add_points(point_cloud, color='blue', point_size=10)
+    plotter.show()
+
+
+
 
 # Trevor suggested that we make a conversion function that takes any 
 # form of an array and converts it to numpy or something that we choose
