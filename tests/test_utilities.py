@@ -28,7 +28,6 @@ def test_remove_outliars_ransac1():
     inliers = points[inliers_indices]
     outliers = points[outliers_indices]
 
-
     plot_two_sets_3D_points(inliers,outliers)
 
     assert 'It looks good' == "It looks good"

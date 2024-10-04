@@ -73,23 +73,31 @@ def find_outliers(points: np.array, method: Optional[str] = 'trev_iter') -> np.a
     
     return outlier_exclusion_map
 
+def remove_outliers(points: np.array, method: Optional[str] = 'ransac') -> np.array:
+
+    if method == 'trev_iter':
+        outlier_exclusion_map = remove_outliers_trev_iter(points)
+    elif method == 'ransac':
+        inliers, outliers, equation_for_plane = remove_outliers_ransac(points)
+    
+    return inliers, outliers, equation_for_plane
+
 # TODO: Implement this function
 def remove_outliers_trev_iter(points: np.array) -> np.array:
     pass
 
-# TODO: Implement this function
 def remove_outliers_ransac(points: np.array) -> np.array:
 
     # Initialize RANSAC for plane fitting
     plane_ransac = pyransac3d.Plane()
 
     # Fit a plane to the data points
-    best_eq, inliers = plane_ransac.fit(points, thresh=.01, maxIteration=1000)
+    equation_for_plane, inliers = plane_ransac.fit(points, thresh=.01, maxIteration=1000)
 
     # Get the outliers
     outliers = np.setdiff1d(np.arange(points.shape[0]), inliers)
 
-    return inliers, outliers, best_eq
+    return inliers, outliers, equation_for_plane
 
 
 

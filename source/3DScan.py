@@ -23,12 +23,13 @@ class Scan:
     # TODO: Implement this function
     def _remove_group_outliers(self):
         # This can only run if point_group_labels has been solved
-        """
+        
         for group in labeled_groups:
-            find group outliers
-            apply outlier map to rows of full outlier map
-            update label map to be in reference to non-outlier rows
-        """
+            labeled_group[group] = remove_outliers(labeled_group[group],'ransac')
+            # find group outliers
+            # apply outlier map to rows of full outlier map
+            # update label map to be in reference to non-outlier rows
+        
         pass
 
     def get_3d_data(self) -> None:
