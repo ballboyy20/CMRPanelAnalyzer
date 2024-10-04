@@ -2,6 +2,7 @@ import numpy as np
 from typing import Optional
 from source.Panel import Panel
 import pyvista as pv
+import pyransac3d
 import json
 import os
 
@@ -78,23 +79,24 @@ def remove_outliers_trev_iter(points: np.array) -> np.array:
 
 # TODO: Implement this function
 def remove_outliers_ransac(points: np.array) -> np.array:
-    # randomly sample 3 point in the data set
 
-    # use those three points to calculate a plane equation ax + by + cz +d = 0
+    # Initialize RANSAC for plane fitting
+    plane_ransac = pyransac3d.Plane()
 
-    # Calculate distance from this plane to all points in data set
+    # Fit a plane to the data points
+    best_eq, inliers = plane_ransac.fit(points, thresh=.01, maxIteration=1000)
 
-    # count inliers
+    # Get the outliers
+    outliers = np.setdiff1d(np.arange(points.shape[0]), inliers)
 
-    # if len(inliers) > len(best_inliers):
-        # best_inliers = inliers
-        #best_plane = (a,b,c,d)
+    return inliers, outliers, best_eq
 
-    pass
 
-def create_random_plane(total_number_points: int, z_value_range: int, x_y_value_range: int):
 
-    #this function creates a random plane
+
+def create_random_dataset(total_number_points: int = 100, z_value_range: int = 10, x_y_value_range: int = 20) -> np.array:
+
+    # this function creates a random plane
     # you give it total amount of points, the ranges of z values, 
     # and a different value for the range of x,y values 
     # this makes it so you get a plane as opposed to like a cube or sphere or something weird
@@ -108,20 +110,40 @@ def create_random_plane(total_number_points: int, z_value_range: int, x_y_value_
 
         random_point = (random_x_value,random_y_value,random_z_value)
         list_of_random_3D_points[point, :] = random_point
-    plot_3d_points(list_of_random_3D_points)
+
+    number_of_outliar_points = int(np.ceil(total_number_points*0.01))
+
+    for point in range(number_of_outliar_points):
+        random_x_value = np.random.uniform(-x_y_value_range,x_y_value_range)
+        random_y_value = np.random.uniform(-x_y_value_range,x_y_value_range)
+        random_z_value = np.random.uniform(-x_y_value_range,x_y_value_range)
+
+        outliar_point = (random_x_value,random_y_value,random_z_value)
+        list_of_random_3D_points[point, :] = outliar_point
+
+    return list_of_random_3D_points
 
 
 
-def plot_3d_points(points_to_be_plotted: np.array):
+def plot_3d_points(points_to_be_plotted: np.array, color: str = 'blue'):
 
     point_cloud = pv.PolyData(points_to_be_plotted)
 
-    # Step 3: Plot the point cloud
     plotter = pv.Plotter()
-    plotter.add_points(point_cloud, color='blue', point_size=10)
+    plotter.add_points(point_cloud, color=color, point_size=10)
     plotter.show()
 
+def plot_two_sets_3D_points(first_set: np.array, second_set: np.array, first_color: str='red',  second_color: str='blue') -> None:
 
+    first_cloud = pv.PolyData(first_set)
+    second_cloud = pv.PolyData(second_set)
+
+    plotter = pv.Plotter()
+
+    plotter.add_points(first_cloud, color=first_color,point_size=10)
+    plotter.add_points(second_cloud, color=second_color, point_size=10)
+
+    plotter.show()
 
 
 # Trevor suggested that we make a conversion function that takes any 
