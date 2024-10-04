@@ -20,5 +20,6 @@ def test_get_angle_between_two_vectors_2():
 
 def test_get_magnitude_of_vector_1():
     vector = (5.5, -6.5, 2.0)
+    
     result = get_magnitude_of_vector(vector)
     assert round(result,5) == 8.74643
