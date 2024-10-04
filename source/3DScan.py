@@ -1,10 +1,10 @@
 import numpy
 import pymesh
-from utilities import find_outliers
+from source.utilities import *
 
 
 class Scan:
-    def __init__(self, scan_filepath: str):
+    def __init__(self, scan_filepath: str)-> None:
         self.scan_filepath = scan_filepath
         self.point_array = None
         self.face_list = None
