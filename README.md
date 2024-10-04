@@ -4,6 +4,13 @@ Jake and Trevor are re-writing some awesome code that Trevor wrote. It will take
 
 If you want to run the test files go read the README in the test folder
 
+Dependicies 
+    -pyvista
+    -pyransac3d
+    -numpy
+    -pytest
+    -pymesh - (are we actually using this? )
+
 
 features surrounded by ## hashtags ## are optional/extra and could be implemented after basic functionality
 
@@ -56,7 +63,7 @@ Class panel
         name
         normal
         centriod
-        Hpoefully some how well get the orientation of a 3D axis coordinate system
+        Hopefully some how well get the orientation of a 3D axis coordinate system
     methods
         getters
         setters
