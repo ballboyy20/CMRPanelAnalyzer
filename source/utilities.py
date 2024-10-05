@@ -25,22 +25,6 @@ def get_magnitude_of_vector(vector: tuple) -> float:
     magnitude = np.sqrt(np.square(vector[0]) + np.square(vector[1]) + np.square(vector[2]))
     return magnitude
 
-def create_random_panel() -> Panel:
-    panel_name = "Random Panel"
-
-    # Generate random normal vector with values between 0 and 10
-    normal_vector = (np.random.uniform(0.0, 10.0), 
-                     np.random.uniform(0.0, 10.0), 
-                     np.random.uniform(0.0, 10.0))
-    
-    # Generate random centroid with values between 0 and 10
-    centroid = (np.random.uniform(0.0, 10.0), 
-                np.random.uniform(0.0, 10.0), 
-                np.random.uniform(0.0, 10.0))
-
-    random_panel = Panel(panel_name,normal_vector, centroid)
-
-    return random_panel
 
 def write_list_dicts_to_json(list_of_dicts: dict, filename: str) -> None: #NOT TESTED WITH PY TEST
     
@@ -223,38 +207,6 @@ def generate_orthonormal_basis(plane, seed=None):
 	basis_vector_2 = skobj.Vector(np.cross(plane_norm, basis_vector_1)).unit()
 	
 	return basis_vector_1, basis_vector_2
-
-
-def create_random_dataset(total_number_points: int = 100, z_value_range: int = 10, x_y_value_range: int = 20) -> np.array:
-
-    # this function creates a random plane
-    # you give it total amount of points, the ranges of z values, 
-    # and a different value for the range of x,y values 
-    # this makes it so you get a plane as opposed to like a cube or sphere or something weird
-     
-    list_of_random_3D_points = np.zeros((total_number_points,3))
-
-    for point in range(total_number_points):
-        random_x_value = np.random.uniform(-x_y_value_range,x_y_value_range)
-        random_y_value = np.random.uniform(-x_y_value_range,x_y_value_range)
-        random_z_value = np.random.uniform(-z_value_range,z_value_range)
-
-        random_point = (random_x_value,random_y_value,random_z_value)
-        list_of_random_3D_points[point, :] = random_point
-
-    number_of_outliar_points = int(np.ceil(total_number_points*0.01))
-
-    for point in range(number_of_outliar_points):
-        random_x_value = np.random.uniform(-x_y_value_range,x_y_value_range)
-        random_y_value = np.random.uniform(-x_y_value_range,x_y_value_range)
-        random_z_value = np.random.uniform(-x_y_value_range,x_y_value_range)
-
-        outliar_point = (random_x_value,random_y_value,random_z_value)
-        list_of_random_3D_points[point, :] = outliar_point
-
-    return list_of_random_3D_points
-
-
 
 def plot_3d_points(points_to_be_plotted: np.array, color: str = 'blue'):
 
