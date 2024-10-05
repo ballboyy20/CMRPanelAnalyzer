@@ -15,20 +15,30 @@ class Scan:
         # The following are variables meant to be adjustable to the user
         self.group_similarity_ratio_limit = 2.5
 
-    def get_3d_data(self) -> None:
+    def extract_3D_data(self) -> None:
             
         mesh_object = pymesh.load_mesh(self.scan_filepath)
 
         self.array_of_3D_points = mesh_object.vertices
         self.face_list = mesh_object.faces
 
+
+    def create_clusters(self) ->dict:
+
+        cluster_map = identify_clusters_Kmeans(self.array_of_3D_points,self.amount_clusters)
+
+        clustered_3D_points_dict = {}
+
+        for i in range(self.amount_clusters):
+            mask = cluster_map == i
+            points_in_one_cluster = self.array_of_3D_points[mask]
+            clustered_3D_points_dict[i] = points_in_one_cluster
             
-    def identify_clusters(self) -> np.array:
+        return clustered_3D_points_dict
+
+
+    
         
-        cluster_map = identify_clusters_with_Kmeans(self.array_of_3D_points, self.amount_clusters)
-
-        return cluster_map
-
     
 
     # TODO: Implement this function
