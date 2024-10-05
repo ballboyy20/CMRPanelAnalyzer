@@ -58,13 +58,13 @@ def remove_outliers_ransac(points: np.array) -> np.array:
 
     # Get the outliers
     outliers = np.setdiff1d(np.arange(points.shape[0]), inliers)
-    boolean_map = np.zeros(points.shape[0],dtype=bool)
-    boolean_map[inliers] = True
-    boolean_map[outliers] = False
+    boolean_mask = np.zeros(points.shape[0],dtype=bool)
+    boolean_mask[inliers] = True
+    boolean_mask[outliers] = False
 
-    return boolean_map
+    return boolean_mask
 
-def identify_clusters_with_Kmeans(data: np.array, amount_clusters: int) -> np.array:
+def identify_clusters_Kmeans(data: np.array, amount_clusters: int) -> np.array: # TODO test this function
 	
     kmeans = KMeans(n_clusters=amount_clusters)
 
