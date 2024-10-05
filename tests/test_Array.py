@@ -1,5 +1,5 @@
 from source.Array import *
-from source.utilities import create_random_panel
+from test_utilities import create_random_panel
 import random
 
 def test_creating_a_list_Panel():
