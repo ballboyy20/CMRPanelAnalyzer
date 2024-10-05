@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 import pymesh
 from source.utilities import *
 
@@ -14,10 +14,20 @@ class Scan:
         self.outlier_method = 'trev_iter'
         self.group_similarity_ratio_limit = 2.5
 
-    # TODO: Implement this function
+    # This will use k-means to identify the groups of points (ignoring those marked 'False' in the
+    # point_outlier_exclusion map) and save them to the instance variable point_group_labels
     def _kmeans_grouping(self):
-        # This will use k-means to identify the groups of points (ignoring those markes 'False' in the
-        # point_outlier_exclusion map) and save them to the instance variable point_group_labels
+        # The user must extract points before calling k-means
+        if self.point_array is None:
+            raise AttributeError('Extract 3d points from the mesh by calling the "get_3d_data"'
+                                 'method on this Scan object before attempting to create k-means groups')
+        # If no outliers have been indicated this point, all points are assigned as inliers
+        if self.point_outlier_exclusion is None:
+            print("No outliers were indicated, all points will now be assigned as inliers.")
+            self.point_outlier_exclusion = np.full(self.point_array[0], True)
+        
+        _group_labels, _centroids, _2d_proj_points = kmeans_clusters(self.point_array[self.point_group_labels])
+            
         pass
 
     # TODO: Implement this function
