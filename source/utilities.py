@@ -68,9 +68,9 @@ def identify_clusters_Kmeans(data: np.array, amount_clusters: int) -> np.array: 
 	
     kmeans = KMeans(n_clusters=amount_clusters)
 
-    cluster_map = kmeans.fit_predict(data)
+    cluster_mask = kmeans.fit_predict(data)
 
-    return cluster_map
+    return cluster_mask
 
 
 # # TODO: implement original clustering algorithm in 3d space (without projection)
