@@ -37,7 +37,8 @@ class Scan:
 
         for i in np.unique(self.cluster_map):
             this_cluster_mask = (self.cluster_map == i)
-            yield self.array_of_3D_points[self.point_outlier_exclusion & this_cluster_mask]
+            this_cluster_inliers = self.point_outlier_exclusion & this_cluster_mask
+            yield self.array_of_3D_points[this_cluster_inliers]
 
 
 
