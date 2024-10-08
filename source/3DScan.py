@@ -42,3 +42,10 @@ class Scan:
             self.point_outlier_exclusion[temp_mask] = cluster_outlier_mask
               
         pass
+
+    def get_individual_cluster(self, cluster: int) ->np.array:
+
+        individual_cluster = (self.cluster_map == cluster)
+        individual_cluster_inliers = (individual_cluster & self.point_outlier_exclusion)
+
+        return self.array_of_3D_points[individual_cluster_inliers]
