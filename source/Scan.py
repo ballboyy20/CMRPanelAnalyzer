@@ -35,13 +35,11 @@ class Scan:
     def get_clusters(self):
         # generator function that produces views of each of the ordered clusters of the points
 
-        for i in np.unique(self.cluster_map):
-            this_cluster_mask = (self.cluster_map == i)
+        for cluster_label in np.unique(self.cluster_map):
+            this_cluster_mask = (self.cluster_map == cluster_label)
             this_cluster_inliers = self.point_outlier_exclusion & this_cluster_mask
-            yield self.array_of_3D_points[this_cluster_inliers]
-
-
-
+            yield cluster_label, self.array_of_3D_points[this_cluster_inliers]
+            
 
     def remove_outliers_from_each_cluster(self):
         # Creates a boolean masks that say which points are outliers (false) and which are inliers (true)
