@@ -48,9 +48,9 @@ class Scan:
 
         for i in np.unique(self.cluster_map):
 
-            temp_mask = (self.cluster_map == i)
-            cluster_outlier_mask = remove_outliers_ransac(self.array_of_3D_points[temp_mask])
-            self.point_outlier_exclusion[temp_mask] = cluster_outlier_mask
+            cluster_inlier_mask = (self.cluster_map == i) & self.point_outlier_exclusion
+            cluster_outlier_mask = remove_outliers_ransac(self.array_of_3D_points[cluster_inlier_mask])
+            self.point_outlier_exclusion[cluster_inlier_mask] = cluster_outlier_mask
               
         pass
 
