@@ -1,6 +1,7 @@
 from source.Panel import Panel
 from typing import List, Tuple, Union
 import os
+from source.Scan import Scan
 from source.utilities import * 
 
 
@@ -34,6 +35,15 @@ class Array:
         angle_between_panels = get_angle_between_two_vectors(vector_one, vector_two)
 
         return angle_between_panels
+    
+    def add_panels_from_3DScan(self,scan_object: Scan) -> None: 
+
+        for cluster_name, cluster_array in scan_object.get_clusters():
+            
+            temp_panel_centriod = calc_centroid_from_points(cluster_array) #TODO implement function
+            temp_panel_normal_vector = calc_normal_vector(cluster_array) #TODO implement function
+
+            self.add_raw_panel(cluster_name, temp_panel_normal_vector,temp_panel_centriod)
     
     def panels_to_json(self, filename: str, json_save_directory: str = None ) -> None:
 

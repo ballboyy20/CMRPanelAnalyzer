@@ -25,6 +25,11 @@ def get_magnitude_of_vector(vector: tuple) -> float:
     magnitude = np.sqrt(np.square(vector[0]) + np.square(vector[1]) + np.square(vector[2]))
     return magnitude
 
+def calc_centroid_from_points(point_array: np.array) -> np.array: #FIXME
+     return point_array[0]
+
+def calc_normal_vector(point_array: np.array) -> np.array: #FIXME
+     return point_array[0]
 
 def write_list_dicts_to_json(list_of_dicts: dict, filename: str) -> None: #NOT TESTED WITH PY TEST
     
