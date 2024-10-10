@@ -1,7 +1,6 @@
 import numpy as np
 from typing import Optional
 from source.Panel import Panel
-import pyvista as pv
 import pyransac3d
 import json
 import os
@@ -54,7 +53,6 @@ def get_dict_from_json(json_filename: str, directory: str = None) -> dict: #NOT 
     return data_from_json
 
 
-
 def remove_outliers_ransac(points: np.array) -> np.array:
 
     # Initialize RANSAC for plane fitting
@@ -71,13 +69,19 @@ def remove_outliers_ransac(points: np.array) -> np.array:
 
     return boolean_mask
 
-def identify_clusters_Kmeans(data: np.array, amount_clusters: int) -> np.array: # TODO test this function
+def identify_clusters_Kmeans(data: np.array, amount_clusters: int, return_centroids: bool = False) -> np.array: # TODO test this function
 	
     kmeans = KMeans(n_clusters=amount_clusters)
-
+    
+    # Perform clustering
     cluster_mask = kmeans.fit_predict(data)
-
-    return cluster_mask
+    
+    # Conditionally return centroids
+    if return_centroids:
+        centroids = kmeans.cluster_centers_
+        return cluster_mask, centroids
+    else:
+        return cluster_mask
 
 
 # # TODO: implement original clustering algorithm in 3d space (without projection)
@@ -199,25 +203,7 @@ def generate_orthonormal_basis(plane, seed=None):
 	# return basis_vector_1, basis_vector_2
     pass
 
-def plot_3d_points(points_to_be_plotted: np.array, color: str = 'blue'):
 
-    point_cloud = pv.PolyData(points_to_be_plotted)
-
-    plotter = pv.Plotter()
-    plotter.add_points(point_cloud, color=color, point_size=10)
-    plotter.show()
-
-def plot_two_sets_3D_points(first_set: np.array, second_set: np.array, first_color: str='red',  second_color: str='blue') -> None:
-
-    first_cloud = pv.PolyData(first_set)
-    second_cloud = pv.PolyData(second_set)
-
-    plotter = pv.Plotter()
-
-    plotter.add_points(first_cloud, color=first_color,point_size=10)
-    plotter.add_points(second_cloud, color=second_color, point_size=10)
-
-    plotter.show()
 
 
 # Trevor suggested that we make a conversion function that takes any 

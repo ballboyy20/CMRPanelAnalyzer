@@ -25,7 +25,7 @@ def test_get_magnitude_of_vector_1():
     assert round(result,5) == 8.74643
 
 
-def test_remove_outliars_ransac1(): # TODO This test is currently subjective. How could we make it objective?
+def test_remove_outliars_ransac1(): # TODO test ransac a lot more. 
 # Create a random dataset
     points = create_random_dataset(1000, 0.001, 50)
     
@@ -36,9 +36,7 @@ def test_remove_outliars_ransac1(): # TODO This test is currently subjective. Ho
     inliers = points[inlier_map]
     outliers = points[~inlier_map]
 
-    plot_two_sets_3D_points(inliers,outliers)
-
-    assert 'It looks good' == "It looks good"
+    assert 'We need to test it better' == "This test will fail"
 
 def test_kmeans_clustering():
     # Create a dataset manually
@@ -51,10 +49,10 @@ def test_kmeans_clustering():
         [9.0, 11.0], # Cluster 2
     ])
     
-    n_clusters = 3
+    n_clusters = 2
     
     # Use the kmeans_clustering function
-    labels = identify_clusters_with_Kmeans(data, n_clusters)
+    labels = identify_clusters_Kmeans(data, n_clusters)
 
     # Check that the number of unique labels matches the number of clusters
     unique_labels = np.unique(labels)
