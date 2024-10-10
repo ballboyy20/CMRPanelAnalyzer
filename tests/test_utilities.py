@@ -72,9 +72,9 @@ def test_kmeans_clustering():
 
 
 
-
-
-
+########################################################
+####### FUNTIONS USED JUST FOR TESTING STUFF ###########
+########################################################
 
 def create_random_panel() -> Panel:
     panel_name = "Random Panel"
@@ -117,7 +117,7 @@ def create_random_dataset(total_number_points: int = 100, z_value_range: int = 1
         random_y_value = np.random.uniform(-x_y_value_range,x_y_value_range)
         random_z_value = np.random.uniform(-x_y_value_range,x_y_value_range)
 
-        outliar_point = (random_x_value,random_y_value,random_z_value)
-        list_of_random_3D_points[point, :] = outliar_point
+        outlier_point = (random_x_value,random_y_value,random_z_value)
+        list_of_random_3D_points[point, :] = outlier_point
 
     return list_of_random_3D_points

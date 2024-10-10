@@ -47,7 +47,7 @@ def test_scatter_plot_clusters_different_colors_with_labels1():
 
     my_vis = Visualizer
 
-    my_vis.scatter_plot_clusters_different_colors_with_labels(data,labels,centroids)
+    my_vis.scatter_plot_clusters_different_colors(data,labels,centroids)
 
     assert 1==1
 

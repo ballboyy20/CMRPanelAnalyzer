@@ -52,7 +52,6 @@ def get_dict_from_json(json_filename: str, directory: str = None) -> dict: #NOT 
 
     return data_from_json
 
-
 def remove_outliers_ransac(points: np.array) -> np.array:
 
     # Initialize RANSAC for plane fitting

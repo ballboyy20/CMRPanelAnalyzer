@@ -5,7 +5,7 @@ import numpy as np
 # we want this module to show
     # the entire array after the outliers have been removed with the clusters different colors
     # plot each panel so that a user can give it a name
- # plot each panel with their respective names labeling them
+ # plot each panel with their respective names labeling them DONE
  # to make sure that our process of naming the panels in an array only once, we may want to plot the middle steps of rearranign the panels to line up with one another  
 
     # something to graph a plane (panel) with its normal vector sticking out (do as a circle to not mislead the orientation of the panels)
@@ -19,32 +19,17 @@ class Visualizer:
         self.font_size = 12
         self.font_type = 'calibri'
 
-    def scatter_plot_clusters_different_colors(data: np.array, cluster_mask: np.array) -> None:
-
+    def scatter_plot_clusters_different_colors(data: np.array, cluster_mask: np.array, cluster_centroids: np.array = None) -> None:
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
 
-        ax.scatter(data[:,0],data[:,1],data[:,2],c=cluster_mask,cmap='viridis',marker='o')
+        ax.scatter(data[:, 0], data[:, 1], data[:, 2], c=cluster_mask, cmap='viridis', marker='o')
 
-        ax.set_xlabel('X Coordinate')
-        ax.set_ylabel('Y Coordinate')
-        ax.set_zlabel('Z Coordinate')
-        plt.title(f'Clusters seperated by color')
+        if cluster_centroids is not None:
+            # Plots cluster labels on the centroid of the cluster
+            for i, centroid in enumerate(cluster_centroids):
+                ax.text(centroid[0], centroid[1], centroid[2], f'Cluster {i}', color='black', fontsize=12)  # Label centroid
 
-        plt.show()
-
-    def scatter_plot_clusters_different_colors_with_labels(data: np.array, cluster_mask: np.array, cluster_centroids: np.array) -> None:
-        fig = plt.figure()
-        ax = fig.add_subplot(111, projection='3d')
-
-        # Plot the data points, colored by cluster
-        scatter = ax.scatter(data[:, 0], data[:, 1], data[:, 2], c=cluster_mask, cmap='viridis', marker='o')
-
-        # Plot each centroid and label with cluster number
-        for i, centroid in enumerate(cluster_centroids):
-            ax.text(centroid[0], centroid[1], centroid[2], f'Cluster {i}', color='black', fontsize=12)  # Label centroid
-
-        # Set axis labels and title
         ax.set_xlabel('X Coordinate')
         ax.set_ylabel('Y Coordinate')
         ax.set_zlabel('Z Coordinate')
