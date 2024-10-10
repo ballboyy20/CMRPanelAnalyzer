@@ -1,13 +1,30 @@
 from source.Scan import *
 import matplotlib.pyplot as plt
 import numpy as np
+from source.Visualizer import Visualizer
+
+
+
+def test_get_clusters():
+    synthetic_data = create_two_random_planes
+
+    test_scan = TestScan(synthetic_data,amount_of_clusters=2)
+
+    test_scan.create_clusters
+    test_vis = Visualizer
+
+    test_vis.scatter_plot_clusters_different_colors(test_scan.array_of_3D_points, test_scan.cluster_map)
 
 
 
 
+class TestScan(Scan):
+    def __init__(self, data_array: np.ndarray, amount_of_clusters: int) -> None:
+        super().__init__(scan_filepath=None, amount_of_clusters=amount_of_clusters)  # Call the parent constructor
+        self.array_of_3D_points = data_array  
+  
 
-
-def create_a_random_plane(total_number_points: int=1000, z_value: int=2, x_y_value_range: int=25, group_value: int=50) -> np.array:
+def create_two_random_planes(total_number_points: int=1000, z_value: int=2, x_y_value_range: int=25, group_value: int=50) -> np.array:
 
     # this function creates a random panel
     # you give it total amount of points, where you want the z value to be, 
@@ -79,6 +96,6 @@ def plot_clusters(points):
     plt.show()
 
     
-points = create_a_random_plane()
+points = create_two_random_planes()
 plot_clusters(points)
 print(points)
