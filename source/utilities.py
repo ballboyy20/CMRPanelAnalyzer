@@ -26,6 +26,8 @@ def get_magnitude_of_vector(vector: tuple) -> float:
     return magnitude
 
 def calc_centroid_from_points(point_array: np.array) -> np.array: #FIXME
+     # take entire area that all points fall within, and take the centroid of that. 
+     # Not taking the average of all points because that will weight it awkwardly towards higher concentrations of points
      return point_array[0]
 
 def calc_normal_vector(point_array: np.array) -> np.array: #FIXME
