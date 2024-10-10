@@ -2,52 +2,59 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
-# we want this module to show
-    # the entire array after the outliers have been removed with the clusters different colors
-    # plot each panel so that a user can give it a name
- # plot each panel with their respective names labeling them DONE
- # to make sure that our process of naming the panels in an array only once, we may want to plot the middle steps of rearranign the panels to line up with one another  
-
-    # something to graph a plane (panel) with its normal vector sticking out (do as a circle to not mislead the orientation of the panels)
-    # something to graph the angles between two panels when comparing only two panels (as they actually are) 
-    # something to graph the angles between two panels when comparing only two panels (exaggerated to convey conceptually the angle between panels) 
-    # use different colored arcs to show the different euler angles between two panels, we'd have to let the user select a ground panel
-
-
 class Visualizer:
-    def __init__(self):
-        self.font_size = 12
-        self.font_type = 'calibri'
+    def __init__(self, font_size: int = 12, font_type: str = 'calibri'):
+        self.font_size = font_size
+        self.font_type = font_type
 
-    def scatter_plot_clusters_different_colors(data: np.array, cluster_mask: np.array, cluster_centroids: np.array = None) -> None:
+    def _create_3d_figure(self) -> plt.Figure:
+        
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
+        return fig, ax
+
+    def scatter_plot_clusters_different_colors(self, data: np.array, cluster_mask: np.array, cluster_centroids: np.array = None) -> None:
+        
+        fig, ax = self._create_3d_figure()
 
         ax.scatter(data[:, 0], data[:, 1], data[:, 2], c=cluster_mask, cmap='viridis', marker='o')
 
         if cluster_centroids is not None:
-            # Plots cluster labels on the centroid of the cluster
             for i, centroid in enumerate(cluster_centroids):
-                ax.text(centroid[0], centroid[1], centroid[2], f'Cluster {i}', color='black', fontsize=12)  # Label centroid
+                ax.text(centroid[0], centroid[1], centroid[2], f'Cluster {i}', color='black', fontsize=self.font_size)
 
-        ax.set_xlabel('X Coordinate')
-        ax.set_ylabel('Y Coordinate')
-        ax.set_zlabel('Z Coordinate')
-        plt.title('Clusters separated by color')
-
+        self._set_axes_labels(ax, 'Clusters separated by color')
         plt.show()
 
-    def plot_outliers_and_inliers_together(outlier_points: np.array, inlier_points: np.array, first_color: str='red',  second_color: str='blue') -> None:
-        fig = plt.figure()
-        ax = fig.add_subplot(111, projection='3d')
+    def plot_outliers_and_inliers_together(self, outlier_points: np.ndarray, inlier_points: np.array, first_color: str='red', second_color: str='blue') -> None:
+        
+        fig, ax = self._create_3d_figure()
 
-        # Unpack x, y, z coordinates for both sets
         ax.scatter(outlier_points[:, 0], outlier_points[:, 1], outlier_points[:, 2], c=first_color, s=10, label='Outlier')
         ax.scatter(inlier_points[:, 0], inlier_points[:, 1], inlier_points[:, 2], c=second_color, s=10, label='Inliers')
 
-        ax.set_xlabel('X axis')
-        ax.set_ylabel('Y axis')
-        ax.set_zlabel('Z axis')
-
+        self._set_axes_labels(ax)
         plt.legend()
         plt.show()
+
+    def plot_3D_points(self, points: np.array) -> None:
+        
+        fig, ax = self._create_3d_figure()
+
+        ax.scatter(points[:, 0], points[:, 1], points[:, 2], c='cyan', s=50, alpha=0.6)
+
+        self._set_axes_labels(ax, 'Plot of 3D points')
+        plt.show()
+
+    def _set_axes_labels(self, ax: Axes3D, title: str = None) -> None:
+        
+        ax.set_xlabel('X Axis')
+        ax.set_ylabel('Y Axis')
+        ax.set_zlabel('Z Axis')
+
+        if title:
+            ax.set_title(title)
+
+        ax.set_xlim([np.min(ax.collections[0]._offsets3d[0]), np.max(ax.collections[0]._offsets3d[0])])
+        ax.set_ylim([np.min(ax.collections[0]._offsets3d[1]), np.max(ax.collections[0]._offsets3d[1])])
+        ax.set_zlim([np.min(ax.collections[0]._offsets3d[2]), np.max(ax.collections[0]._offsets3d[2])])

@@ -21,7 +21,7 @@ def test_scatter_plot_clusters_different_colors1():
 
     labels = identify_clusters_Kmeans(data,n_clusters)
 
-    my_vis = Visualizer
+    my_vis = Visualizer()
 
     my_vis.scatter_plot_clusters_different_colors(data,labels)
 
@@ -45,7 +45,7 @@ def test_scatter_plot_clusters_different_colors_with_labels1():
 
     labels, centroids = identify_clusters_Kmeans(data,n_clusters, return_centroids=True)
 
-    my_vis = Visualizer
+    my_vis = Visualizer()
 
     my_vis.scatter_plot_clusters_different_colors(data,labels,centroids)
 
@@ -62,7 +62,7 @@ def test_plot_outliers_and_inliers_together(): # TODO This test is currently sub
     inliers = points[inlier_map]
     outliers = points[~inlier_map]
 
-    my_vis = Visualizer
+    my_vis = Visualizer()
     my_vis.plot_outliers_and_inliers_together(outliers,inliers)
 
     assert 'It looks good' == "It looks good"

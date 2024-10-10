@@ -121,3 +121,45 @@ def create_random_dataset(total_number_points: int = 100, z_value_range: int = 1
         list_of_random_3D_points[point, :] = outlier_point
 
     return list_of_random_3D_points
+
+def create_two_random_planes(total_number_points: int=1000, z_value: int=2, x_y_value_range: int=25, group_value: int=50) -> np.array:
+
+    # this function creates a random panel
+    # you give it total amount of points, where you want the z value to be, 
+    # and a different value for the range of x,y values 
+    # this makes it so you get a plane as opposed to like a cube or sphere or something weird
+    # Sorry this function is messy I was trying to go quick
+
+    list_of_random_3D_points = np.zeros((total_number_points,3))
+    list_of_random_3D_points2 = np.zeros((total_number_points,3))
+
+
+    for point in range(total_number_points):
+        random_x_value = np.random.uniform(group_value,group_value+x_y_value_range)
+        random_y_value = np.random.uniform(group_value,group_value+x_y_value_range)
+        random_z_value = np.random.uniform(-z_value,z_value)
+
+        random_point = (random_x_value,random_y_value,random_z_value)
+        list_of_random_3D_points[point, :] = random_point
+
+    for point in range(total_number_points):
+        random_x_value = np.random.uniform(-group_value,-(group_value+x_y_value_range))
+        random_y_value = np.random.uniform(-group_value,-(group_value+x_y_value_range))
+        random_z_value = np.random.uniform(-z_value,z_value)
+
+        random_point = (random_x_value,random_y_value,random_z_value)
+        list_of_random_3D_points2[point, :] = random_point
+
+    list_of_random_3D_points = np.vstack((list_of_random_3D_points,list_of_random_3D_points2))
+
+    number_of_outliar_points = int(np.ceil(total_number_points*0.01))
+
+    for point in range(number_of_outliar_points):
+        random_x_value = np.random.uniform(-group_value,group_value)
+        random_y_value = np.random.uniform(-group_value,group_value)
+        random_z_value = np.random.uniform(-group_value,group_value)
+
+        outlier_point = (random_x_value,random_y_value,random_z_value)
+        list_of_random_3D_points[point, :] = outlier_point
+
+    return list_of_random_3D_points
