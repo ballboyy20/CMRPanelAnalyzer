@@ -27,7 +27,9 @@ def get_magnitude_of_vector(vector: tuple) -> float:
 def calc_centroid_from_points(point_array: np.array) -> np.array: #FIXME
      # take entire area that all points fall within, and take the centroid of that. 
      # Not taking the average of all points because that will weight it awkwardly towards higher concentrations of points
-     return point_array[0]
+     # Look into scipy.spatial ConvexHull. This library will fidn the smallest polygon that encompasses
+     # the 3d points and find the centroids based on that
+	 return point_array[0]
 
 def calc_normal_vector(point_array: np.array) -> np.array: #FIXME
      return point_array[0]
