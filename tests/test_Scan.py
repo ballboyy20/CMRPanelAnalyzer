@@ -30,7 +30,7 @@ def test_visualize_outliers():
     test_scan.visualize_clean_clusters()
     # pytest.fail('FIXME')
 
-def test_see_if_array_is_getting_good_clusters():
+def test_see_if_array_is_getting_good_clusters(): 
     synthetic_data = create_two_random_planes(total_number_points=20)
 
     test_scan = TestScan(synthetic_data,amount_of_clusters=2)
