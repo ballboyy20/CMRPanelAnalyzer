@@ -69,9 +69,9 @@ class Scan:
         ''' generator function that produces views of each of the ordered clusters of the 3D points '''
 
         for cluster_label in np.unique(self.cluster_map):
-            this_cluster_mask = (self.cluster_map == cluster_label)
-            this_cluster_inliers = self.point_outlier_exclusion & this_cluster_mask
-            yield cluster_label, self.array_of_3D_points[this_cluster_inliers]
+            temp_cluster_mask = (self.cluster_map == cluster_label)
+            temp_cluster_inliers = self.point_outlier_exclusion & temp_cluster_mask
+            yield cluster_label, self.array_of_3D_points[temp_cluster_inliers]
             
 
     def get_individual_cluster(self, cluster: int) ->np.array:
@@ -100,7 +100,7 @@ class Scan:
         self.scan_visualizer.plot_outliers_and_inliers_together(outliers, inliers)
 
     def visualize_clean_clusters(self):
-        
+        """This will plot the clusters without the outliers"""
         if self.array_of_3D_points is None or self.point_outlier_exclusion is None:
             raise ValueError("Some things need to happen before you can execute this function")
         

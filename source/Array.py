@@ -40,10 +40,10 @@ class Array:
 
         for cluster_name, cluster_array in scan_object.get_clusters():
             
-            temp_panel_centriod = calc_centroid_from_points(cluster_array) #TODO implement function
+            temp_panel_centroid = calc_centroid_from_points(cluster_array) #TODO implement function
             temp_panel_normal_vector = calc_normal_vector(cluster_array) #TODO implement function
 
-            self.add_raw_panel(cluster_name, temp_panel_normal_vector,temp_panel_centriod)
+            self.add_raw_panel(cluster_name, temp_panel_normal_vector,temp_panel_centroid)
     
     def panels_to_json(self, filename: str, json_save_directory: str = None ) -> None:
 
