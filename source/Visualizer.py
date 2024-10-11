@@ -7,12 +7,6 @@ class Visualizer:
         self.font_size = font_size
         self.font_type = font_type
 
-    def _create_3d_figure(self) -> plt.Figure:
-        
-        fig = plt.figure()
-        ax = fig.add_subplot(111, projection='3d')
-        return fig, ax
-
     def scatter_plot_clusters_different_colors(self, data: np.array, cluster_map: np.array, cluster_centroids: np.array = None) -> None:
         
         fig, ax = self._create_3d_figure()
@@ -45,6 +39,12 @@ class Visualizer:
 
         self._set_axes_labels(ax, 'Plot of 3D points')
         plt.show()
+
+    def _create_3d_figure(self) -> plt.Figure:
+        
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        return fig, ax
 
     def _set_axes_labels(self, ax: Axes3D, title: str = None) -> None:
         
