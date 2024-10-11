@@ -36,7 +36,7 @@ class Array:
 
         return angle_between_panels
     
-    def add_panels_from_3DScan(self,scan_object: Scan) -> None: 
+    def add_panels_from_3DScan(self,scan_object: Scan) -> None: #TODO add error handling, make sure that the Scan passed in actually has data
 
         for cluster_name, cluster_array in scan_object.get_clusters():
             

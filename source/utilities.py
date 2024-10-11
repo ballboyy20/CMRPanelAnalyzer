@@ -1,6 +1,7 @@
 import numpy as np
 from typing import Optional
 from source.Panel import Panel
+from skspatial.objects import Plane
 import pyransac3d
 import json
 import os
@@ -27,17 +28,16 @@ def get_magnitude_of_vector(vector: tuple) -> float:
 def calc_centroid_from_points(point_array: np.array) -> np.array: #FIXME
      # take entire area that all points fall within, and take the centroid of that. 
      # Not taking the average of all points because that will weight it awkwardly towards higher concentrations of points
-     # Look into scipy.spatial ConvexHull. This library will fidn the smallest polygon that encompasses
+     # Look into scipy.spatial ConvexHull. This library will find the smallest polygon that encompasses
      # the 3d points and find the centroids based on that
 	 return point_array[0]
 
-def calc_normal_vector(point_array: np.array) -> np.array: #FIXME
-
-	# consider taking the equation for a plane the the ransac function outputs
-	# Should we rerun the ransac function again here and only extract the equation of a plane? 
-	# That would probably be a waste of computation 
-
-    return point_array[0]
+def calc_normal_vector(point_array: np.array) -> np.array: #TODO test this function more
+     
+	plane_of_best_fit = Plane.best_fit(point_array)
+	normal_vector = plane_of_best_fit.normal
+    
+	return normal_vector
 
 def write_list_dicts_to_json(list_of_dicts: dict, filename: str) -> None: #NOT TESTED WITH PY TEST
     

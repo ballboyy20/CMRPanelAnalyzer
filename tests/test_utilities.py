@@ -78,6 +78,21 @@ def test_kmeans_clustering():
     assert all(count > 0 for count in counts.values()), "All clusters should have at least one point assigned."
 
 
+def test_calc_normal_vector1():
+
+    test_data = create_random_dataset()
+
+    normal_vector = calc_normal_vector(test_data)
+
+    assert len(normal_vector) == 3, f"Expected 3 points in the normal vector, got something else"
+    assert isinstance(normal_vector, np.ndarray), f"normal vector was not a numpy array"
+    assert normal_vector[0] < 1.0
+    assert normal_vector[1] < 1.0
+    assert normal_vector[2] < 1.0
+    
+def test_calc_centroid_from_points():
+    test_data = create_random_dataset()
+    centroid = calc_centroid_from_points(test_data)
 
 
 
@@ -120,15 +135,15 @@ def create_random_dataset(total_number_points: int = 200, z_value_range: int = .
         random_point = (random_x_value,random_y_value,random_z_value)
         list_of_random_3D_points[point, :] = random_point
 
-    number_of_outliar_points = int(np.ceil(total_number_points*0.05))
+    # number_of_outliar_points = int(np.ceil(total_number_points*0.05))
 
-    for point in range(number_of_outliar_points):
-        random_x_value = np.random.uniform(-x_y_value_range,x_y_value_range)
-        random_y_value = np.random.uniform(-x_y_value_range,x_y_value_range)
-        random_z_value = np.random.uniform(-x_y_value_range,x_y_value_range)
+    # for point in range(number_of_outliar_points):
+    #     random_x_value = np.random.uniform(-x_y_value_range,x_y_value_range)
+    #     random_y_value = np.random.uniform(-x_y_value_range,x_y_value_range)
+    #     random_z_value = np.random.uniform(-x_y_value_range,x_y_value_range)
 
-        outlier_point = (random_x_value,random_y_value,random_z_value)
-        list_of_random_3D_points[point, :] = outlier_point
+    #     outlier_point = (random_x_value,random_y_value,random_z_value)
+    #     list_of_random_3D_points[point, :] = outlier_point
 
     return list_of_random_3D_points
 
