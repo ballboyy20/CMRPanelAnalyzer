@@ -66,7 +66,7 @@ class Scan:
         pass
 
     def get_clusters(self):
-        ''' generator function that produces views of each of the ordered clusters of the points'''
+        ''' generator function that produces views of each of the ordered clusters of the 3D points '''
 
         for cluster_label in np.unique(self.cluster_map):
             this_cluster_mask = (self.cluster_map == cluster_label)
@@ -86,6 +86,8 @@ class Scan:
         self.scan_visualizer.scatter_plot_clusters_different_colors(self.get_array_of_3D_points(),self.get_cluster_map())
 
     def visualize_outliers_and_inliers(self):
+
+        test = self.point_outlier_exclusion
         
         outliers = self.array_of_3D_points[~self.point_outlier_exclusion, :]
         inliers = self.array_of_3D_points[self.point_outlier_exclusion, :]  

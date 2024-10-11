@@ -20,7 +20,7 @@ def test_visualize_outliers():
     test_scan = TestScan(synthetic_data,amount_of_clusters=2)
     test_scan.remove_outliers_from_each_cluster()
     test_scan.visualize_outliers_and_inliers()
-    #pytest.fail('FIXME')
+    # pytest.fail('FIXME')
 
 
 class TestScan(Scan):

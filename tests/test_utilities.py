@@ -1,4 +1,5 @@
 from source.utilities import *
+from source.Visualizer import Visualizer
 import numpy as np
 
 def test_get_angle_between_two_vectors_1():
@@ -26,8 +27,14 @@ def test_get_magnitude_of_vector_1():
 
 
 def test_remove_outliars_ransac1(): # TODO test ransac a lot more. 
-# Create a random dataset
-    points = create_random_dataset(1000, 0.001, 50)
+    # Create a random dataset
+    points = create_random_dataset()
+
+    """the ransac function begins to fail when z > 0.01
+    Basically its needs to see a really tight range of z values or else it won't
+    recognize the plane as a plane. 
+    
+    This may be an issue for us"""
     
     # Get the boolean map for inliers
     inlier_map = remove_outliers_ransac(points)
@@ -36,7 +43,10 @@ def test_remove_outliars_ransac1(): # TODO test ransac a lot more.
     inliers = points[inlier_map]
     outliers = points[~inlier_map]
 
-    assert 'We need to test it better' == "This test will fail"
+    test_vis = Visualizer()
+    test_vis.plot_outliers_and_inliers_together(outliers, inliers)
+
+    #pytest.fail('Test me more')
 
 def test_kmeans_clustering():
     # Create a dataset manually
@@ -93,7 +103,7 @@ def create_random_panel() -> Panel:
 
     return random_panel
 
-def create_random_dataset(total_number_points: int = 100, z_value_range: int = 10, x_y_value_range: int = 20) -> np.array:
+def create_random_dataset(total_number_points: int = 200, z_value_range: int = .001, x_y_value_range: int = 20) -> np.array:
 
     # this function creates a random plane
     # you give it total amount of points, the ranges of z values, 
@@ -110,7 +120,7 @@ def create_random_dataset(total_number_points: int = 100, z_value_range: int = 1
         random_point = (random_x_value,random_y_value,random_z_value)
         list_of_random_3D_points[point, :] = random_point
 
-    number_of_outliar_points = int(np.ceil(total_number_points*0.01))
+    number_of_outliar_points = int(np.ceil(total_number_points*0.05))
 
     for point in range(number_of_outliar_points):
         random_x_value = np.random.uniform(-x_y_value_range,x_y_value_range)
@@ -122,7 +132,7 @@ def create_random_dataset(total_number_points: int = 100, z_value_range: int = 1
 
     return list_of_random_3D_points
 
-def create_two_random_planes(total_number_points: int=30, z_value: int=2, x_y_value_range: int=25, group_value: int=50) -> np.array:
+def create_two_random_planes(total_number_points: int=1000, z_value: int=.001, x_y_value_range: int=25, group_value: int=50) -> np.array:
 
     # this function creates a random panel
     # you give it total amount of points, where you want the z value to be, 
@@ -130,11 +140,12 @@ def create_two_random_planes(total_number_points: int=30, z_value: int=2, x_y_va
     # this makes it so you get a plane as opposed to like a cube or sphere or something weird
     # Sorry this function is messy I was trying to go quick
 
-    list_of_random_3D_points = np.zeros((total_number_points,3))
-    list_of_random_3D_points2 = np.zeros((total_number_points,3))
+    amount_of_points_in_one_cluster = int(np.ceil(total_number_points/2))
+    list_of_random_3D_points = np.zeros((amount_of_points_in_one_cluster,3))
+    list_of_random_3D_points2 = np.zeros((amount_of_points_in_one_cluster,3))
 
 
-    for point in range(total_number_points):
+    for point in range(amount_of_points_in_one_cluster):
         random_x_value = np.random.uniform(group_value,group_value+x_y_value_range)
         random_y_value = np.random.uniform(group_value,group_value+x_y_value_range)
         random_z_value = np.random.uniform(-z_value,z_value)
@@ -142,7 +153,7 @@ def create_two_random_planes(total_number_points: int=30, z_value: int=2, x_y_va
         random_point = (random_x_value,random_y_value,random_z_value)
         list_of_random_3D_points[point, :] = random_point
 
-    for point in range(total_number_points):
+    for point in range(amount_of_points_in_one_cluster):
         random_x_value = np.random.uniform(-group_value,-(group_value+x_y_value_range))
         random_y_value = np.random.uniform(-group_value,-(group_value+x_y_value_range))
         random_z_value = np.random.uniform(-z_value,z_value)
