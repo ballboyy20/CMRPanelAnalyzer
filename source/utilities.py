@@ -32,7 +32,12 @@ def calc_centroid_from_points(point_array: np.array) -> np.array: #FIXME
 	 return point_array[0]
 
 def calc_normal_vector(point_array: np.array) -> np.array: #FIXME
-     return point_array[0]
+
+	# consider taking the equation for a plane the the ransac function outputs
+	# Should we rerun the ransac function again here and only extract the equation of a plane? 
+	# That would probably be a waste of computation 
+
+    return point_array[0]
 
 def write_list_dicts_to_json(list_of_dicts: dict, filename: str) -> None: #NOT TESTED WITH PY TEST
     
