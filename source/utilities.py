@@ -2,6 +2,7 @@ import numpy as np
 from typing import Optional
 from source.Panel import Panel
 from skspatial.objects import Plane
+from scipy.spatial import ConvexHull
 import pyransac3d
 import json
 import os
@@ -25,12 +26,18 @@ def get_magnitude_of_vector(vector: tuple) -> float:
     magnitude = np.sqrt(np.square(vector[0]) + np.square(vector[1]) + np.square(vector[2]))
     return magnitude
 
-def calc_centroid_from_points(point_array: np.array) -> np.array: #FIXME
+def calc_centroid_from_points(point_array: np.array) -> np.array: #TODO test the crap out of this function
      # take entire area that all points fall within, and take the centroid of that. 
      # Not taking the average of all points because that will weight it awkwardly towards higher concentrations of points
      # Look into scipy.spatial ConvexHull. This library will find the smallest polygon that encompasses
      # the 3d points and find the centroids based on that
-	 return point_array[0]
+	hull = ConvexHull(point_array)
+    
+	hull_vertices = point_array[hull.vertices]
+    
+	centroid = np.mean(hull_vertices, axis=0)
+	 
+	return centroid
 
 def calc_normal_vector(point_array: np.array) -> np.array: #TODO test this function more
      
