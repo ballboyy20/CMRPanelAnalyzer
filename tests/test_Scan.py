@@ -14,6 +14,13 @@ def test_get_clusters():
     test_scan.visualize_clusters()
     #pytest.fail('FIXME')
 
+def test_visualize_outliers():
+    synthetic_data = create_two_random_planes()
+
+    test_scan = TestScan(synthetic_data,amount_of_clusters=2)
+    test_scan.remove_outliers_from_each_cluster()
+    test_scan.visualize_outliers_and_inliers()
+    #pytest.fail('FIXME')
 
 
 class TestScan(Scan):

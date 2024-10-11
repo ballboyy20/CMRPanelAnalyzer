@@ -55,6 +55,6 @@ class Visualizer:
         if title:
             ax.set_title(title)
 
-        ax.set_xlim([np.min(ax.collections[0]._offsets3d[0]), np.max(ax.collections[0]._offsets3d[0])])
-        ax.set_ylim([np.min(ax.collections[0]._offsets3d[1]), np.max(ax.collections[0]._offsets3d[1])])
-        ax.set_zlim([np.min(ax.collections[0]._offsets3d[2]), np.max(ax.collections[0]._offsets3d[2])])
+        # ax.set_xlim([np.min(ax.collections[0]._offsets3d[0]), np.max(ax.collections[0]._offsets3d[0])])
+        # ax.set_ylim([np.min(ax.collections[0]._offsets3d[1]), np.max(ax.collections[0]._offsets3d[1])])
+        # ax.set_zlim([np.min(ax.collections[0]._offsets3d[2]), np.max(ax.collections[0]._offsets3d[2])])

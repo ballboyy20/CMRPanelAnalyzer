@@ -38,7 +38,7 @@ class Scan:
         return self.cluster_map
     
     def create_clusters(self) ->None:
-        # creates a np.arrays that contain points that are clustered together
+        '''creates a np.arrays that contain points that are clustered together'''
 
         self.cluster_map = identify_clusters_Kmeans(self.array_of_3D_points,self.amount_clusters)
         
@@ -66,7 +66,7 @@ class Scan:
         pass
 
     def get_clusters(self):
-        # generator function that produces views of each of the ordered clusters of the points
+        ''' generator function that produces views of each of the ordered clusters of the points'''
 
         for cluster_label in np.unique(self.cluster_map):
             this_cluster_mask = (self.cluster_map == cluster_label)
@@ -84,3 +84,11 @@ class Scan:
 
     def visualize_clusters(self):
         self.scan_visualizer.scatter_plot_clusters_different_colors(self.get_array_of_3D_points(),self.get_cluster_map())
+
+    def visualize_outliers_and_inliers(self):
+        
+        outliers = self.array_of_3D_points[~self.point_outlier_exclusion, :]
+        inliers = self.array_of_3D_points[self.point_outlier_exclusion, :]  
+
+        # Plot the outliers and inliers
+        self.scan_visualizer.plot_outliers_and_inliers_together(outliers, inliers)

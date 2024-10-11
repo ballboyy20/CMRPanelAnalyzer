@@ -122,7 +122,7 @@ def create_random_dataset(total_number_points: int = 100, z_value_range: int = 1
 
     return list_of_random_3D_points
 
-def create_two_random_planes(total_number_points: int=1000, z_value: int=2, x_y_value_range: int=25, group_value: int=50) -> np.array:
+def create_two_random_planes(total_number_points: int=30, z_value: int=2, x_y_value_range: int=25, group_value: int=50) -> np.array:
 
     # this function creates a random panel
     # you give it total amount of points, where you want the z value to be, 
