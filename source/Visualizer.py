@@ -13,11 +13,11 @@ class Visualizer:
         ax = fig.add_subplot(111, projection='3d')
         return fig, ax
 
-    def scatter_plot_clusters_different_colors(self, data: np.array, cluster_mask: np.array, cluster_centroids: np.array = None) -> None:
+    def scatter_plot_clusters_different_colors(self, data: np.array, cluster_map: np.array, cluster_centroids: np.array = None) -> None:
         
         fig, ax = self._create_3d_figure()
 
-        ax.scatter(data[:, 0], data[:, 1], data[:, 2], c=cluster_mask, cmap='viridis', marker='o')
+        ax.scatter(data[:, 0], data[:, 1], data[:, 2], c=cluster_map, cmap='viridis', marker='o')
 
         if cluster_centroids is not None:
             for i, centroid in enumerate(cluster_centroids):

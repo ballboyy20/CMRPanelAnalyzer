@@ -86,11 +86,28 @@ class Scan:
         self.scan_visualizer.scatter_plot_clusters_different_colors(self.get_array_of_3D_points(),self.get_cluster_map())
 
     def visualize_outliers_and_inliers(self):
-
-        test = self.point_outlier_exclusion
         
-        outliers = self.array_of_3D_points[~self.point_outlier_exclusion, :]
-        inliers = self.array_of_3D_points[self.point_outlier_exclusion, :]  
+        # Error handling
+        if self.array_of_3D_points is None or self.point_outlier_exclusion is None:
+            raise ValueError("Some things need to happen before you can execute this function")
+        
+        if len(self.array_of_3D_points) != len(self.point_outlier_exclusion):
+            raise ValueError("Mismatch between array_of_3D_points and point_outlier_exclusion lengths.")
+    
+        outliers = self.array_of_3D_points[~self.point_outlier_exclusion, :] #FIXME should we make this a view instead of a copy?
+        inliers = self.array_of_3D_points[self.point_outlier_exclusion, :]
 
-        # Plot the outliers and inliers
         self.scan_visualizer.plot_outliers_and_inliers_together(outliers, inliers)
+
+    def visualize_clean_clusters(self):
+        
+        if self.array_of_3D_points is None or self.point_outlier_exclusion is None:
+            raise ValueError("Some things need to happen before you can execute this function")
+        
+        inliers = self.array_of_3D_points[self.point_outlier_exclusion,:]
+        inlier_map = self.cluster_map[self.point_outlier_exclusion]
+
+        # a = len(inliers)
+        # b = len(self.cluster_map[self.point_outlier_exclusion])
+
+        self.scan_visualizer.scatter_plot_clusters_different_colors(inliers,inlier_map)
