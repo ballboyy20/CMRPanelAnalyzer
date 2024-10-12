@@ -78,17 +78,25 @@ def test_kmeans_clustering():
     assert all(count > 0 for count in counts.values()), "All clusters should have at least one point assigned."
 
 
-def test_calc_normal_vector1():
+def test_calc_normal_vector_1(): #TODO test this more in depth
 
     test_data = create_random_dataset()
 
-    normal_vector = calc_normal_vector(test_data)
+    normal_vector, best_fit_plane = calc_normal_vector_and_bestfit_plane(test_data)
 
     assert len(normal_vector) == 3, f"Expected 3 points in the normal vector, got something else"
     assert isinstance(normal_vector, np.ndarray), f"normal vector was not a numpy array"
     assert normal_vector[0] < 1.0
     assert normal_vector[1] < 1.0
     assert normal_vector[2] < 1.0
+
+def test_calc_bestfit_plane1(): #TODO test this more in depth
+    test_data = create_random_dataset()
+    normal_vector, best_fit_plane = calc_normal_vector_and_bestfit_plane(test_data)
+    assert isinstance(best_fit_plane, np.ndarray), f"It's type was not a np.array"
+    assert len(best_fit_plane) == 3
+
+
     
 def test_calc_centroid_from_points():
     test_data = create_random_dataset()

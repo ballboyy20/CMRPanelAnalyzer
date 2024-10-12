@@ -39,12 +39,12 @@ def calc_centroid_from_points(point_array: np.array) -> np.array: #TODO test the
 	 
 	return centroid
 
-def calc_normal_vector(point_array: np.array) -> np.array: #TODO test this function more
+def calc_normal_vector_and_bestfit_plane(point_array: np.array) -> np.array: #TODO test this function more
      
 	plane_of_best_fit = Plane.best_fit(point_array)
 	normal_vector = plane_of_best_fit.normal
     
-	return normal_vector
+	return normal_vector, plane_of_best_fit
 
 def write_list_dicts_to_json(list_of_dicts: dict, filename: str) -> None: #NOT TESTED WITH PY TEST
     

@@ -17,8 +17,9 @@ class Array:
         self.list_of_panels.append(panel) # Add a Panel obeject to the list of Panels
 
     def add_raw_panel(self, name: str, vector: Union[np.array, Tuple[float, float, float]], 
-                 centroid: Union[np.array,Tuple[float, float, float]]):
-        raw_panel = Panel(name, vector, centroid)
+                                        best_fit_plane: Union[np.array, Tuple[float, float, float]],
+                                        centroid: Union[np.array,Tuple[float, float, float]]):
+        raw_panel = Panel(name, vector, best_fit_plane, centroid)
         self.add_panel(raw_panel)
 
     def count_panels(self) -> int:
@@ -41,9 +42,9 @@ class Array:
         for cluster_name, cluster_array in scan_object.get_clusters():
             
             temp_panel_centroid = calc_centroid_from_points(cluster_array) #TODO implement function
-            temp_panel_normal_vector = calc_normal_vector(cluster_array) #TODO implement function
+            temp_panel_normal_vector, temp_best_fit_plane = calc_normal_vector_and_bestfit_plane(cluster_array) #TODO implement function
 
-            self.add_raw_panel(cluster_name, temp_panel_normal_vector,temp_panel_centroid)
+            self.add_raw_panel(cluster_name, temp_panel_normal_vector,temp_best_fit_plane, temp_panel_centroid)
     
     def panels_to_json(self, filename: str, json_save_directory: str = None ) -> None:
 
@@ -82,7 +83,7 @@ class Array:
 
         for panel_dict in data_from_json:
             # Extract the name, normal vector, and centroid from the JSON and create a new panel object with that data
-            new_panel_from_json = Panel(panel_dict['name'], panel_dict['normal vector'], panel_dict['centroid'])
+            new_panel_from_json = Panel(panel_dict['name'], panel_dict['normal vector'], panel_dict['best fit plane'], panel_dict['centroid'])
 
             # Add the newly created panel to the list of panels attribute
             self.add_panel(new_panel_from_json)
