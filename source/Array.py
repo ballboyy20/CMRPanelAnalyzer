@@ -69,7 +69,6 @@ class Array:
 
         write_list_dicts_to_json(panel_data_as_dicts, file_path)
 
-
     def json_to_panels(self, json_filename: str, json_location_directory: str = None) -> None:
         # If no directory is provided, default to the source directory of this script
         if json_location_directory is None:

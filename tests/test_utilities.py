@@ -93,7 +93,8 @@ def test_calc_normal_vector1():
 def test_calc_centroid_from_points():
     test_data = create_random_dataset()
     centroid = calc_centroid_from_points(test_data)
-
+    assert isinstance(centroid, np.ndarray), f"Exptected an array, it was something else"
+    assert len(centroid) == 3
 
 
 
