@@ -51,6 +51,7 @@ class Visualizer:
         ax.set_xlabel('X Axis')
         ax.set_ylabel('Y Axis')
         ax.set_zlabel('Z Axis')
+        ax.set_aspect('equal', adjustable='box')
 
         if title:
             ax.set_title(title)

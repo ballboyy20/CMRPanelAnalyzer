@@ -30,15 +30,15 @@ class Array:
         panel_one = self.list_of_panels[first_panel_to_be_compared]
         panel_two = self.list_of_panels[second_panel_to_be_compared]
 
-        vector_one = panel_one.get_normal_vector
-        vector_two = panel_two.get_normal_vector
+        vector_one = panel_one.normal_unit_vector
+        vector_two = panel_two.normal_unit_vector
 
         angle_between_panels = get_angle_between_two_vectors(vector_one, vector_two)
 
         return angle_between_panels
     
-    def add_panels_from_3DScan(self,scan_object: Scan) -> None: #TODO add error handling, make sure that the Scan passed in actually has data
-
+    def add_panels_from_3DScan(self,scan_object: Scan) -> None: #TODO add error handling, make sure that the Scan passed in actually has data, also consider moving this to the constructor
+        '''Takes 3D scan object and creates panels from its data'''
         for cluster_name, cluster_array in scan_object.get_clusters():
             
             temp_panel_centroid = calc_centroid_from_points(cluster_array) #TODO implement function

@@ -15,7 +15,7 @@ def get_angle_between_two_vectors(vector_one, vector_two) -> float:
     dot_product = np.dot(vector_two, vector_one)
     
     value = dot_product/(get_magnitude_of_vector(vector_one) * get_magnitude_of_vector(vector_two))
-    print(value)
+    
     angle_in_radians = np.arccos(value)
 
     angle_in_degrees = np.rad2deg(angle_in_radians)

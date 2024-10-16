@@ -144,15 +144,15 @@ def create_random_dataset(total_number_points: int = 200, z_value_range: int = .
         random_point = (random_x_value,random_y_value,random_z_value)
         list_of_random_3D_points[point, :] = random_point
 
-    # number_of_outliar_points = int(np.ceil(total_number_points*0.05))
+    number_of_outliar_points = int(np.ceil(total_number_points*0.05))
 
-    # for point in range(number_of_outliar_points):
-    #     random_x_value = np.random.uniform(-x_y_value_range,x_y_value_range)
-    #     random_y_value = np.random.uniform(-x_y_value_range,x_y_value_range)
-    #     random_z_value = np.random.uniform(-x_y_value_range,x_y_value_range)
+    for point in range(number_of_outliar_points):
+        random_x_value = np.random.uniform(-x_y_value_range,x_y_value_range)
+        random_y_value = np.random.uniform(-x_y_value_range,x_y_value_range)
+        random_z_value = np.random.uniform(-x_y_value_range,x_y_value_range)
 
-    #     outlier_point = (random_x_value,random_y_value,random_z_value)
-    #     list_of_random_3D_points[point, :] = outlier_point
+        outlier_point = (random_x_value,random_y_value,random_z_value)
+        list_of_random_3D_points[point, :] = outlier_point
 
     return list_of_random_3D_points
 

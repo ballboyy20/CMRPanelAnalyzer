@@ -101,8 +101,10 @@ class Scan:
 
     def visualize_clean_clusters(self):
         """This will plot the clusters without the outliers"""
-        if self.array_of_3D_points is None or self.point_outlier_exclusion is None:
-            raise ValueError("Some things need to happen before you can execute this function")
+        if self.array_of_3D_points is None:
+            raise ValueError("Some things need to happen before you can execute this function. array_of_3D_points is None")
+        if self.point_outlier_exclusion is None:
+            raise ValueError("Some things need to happen before you can execute this function. point_outlier_exlcusion is None")
         
         inliers = self.array_of_3D_points[self.point_outlier_exclusion,:]
         inlier_map = self.cluster_map[self.point_outlier_exclusion]
