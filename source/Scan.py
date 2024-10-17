@@ -1,5 +1,5 @@
 import numpy as np
-import pymesh
+import pyvista
 from source.utilities import *
 from source.Visualizer import Visualizer
 
@@ -19,9 +19,9 @@ class Scan:
 
     def extract_3D_data(self) ->None:
             
-        mesh_object = pymesh.load_mesh(self.scan_filepath)
+        mesh_object = pyvista.read(self.scan_filepath)
 
-        self.array_of_3D_points = mesh_object.vertices
+        self.array_of_3D_points = mesh_object.points
         self.face_list = mesh_object.faces
 
         self.point_outlier_exclusion = np.ones(self.array_of_3D_points.shape[0],dtype=bool)

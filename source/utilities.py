@@ -1,5 +1,4 @@
 import numpy as np
-from typing import Optional
 from source.Panel import Panel
 from skspatial.objects import Plane
 from scipy.spatial import ConvexHull
@@ -12,89 +11,98 @@ import skspatial.objects as skobj
 import skspatial.transformation as sktrf
 
 def get_angle_between_two_vectors(vector_one, vector_two) -> float:
-    dot_product = np.dot(vector_two, vector_one)
-    
-    value = dot_product/(get_magnitude_of_vector(vector_one) * get_magnitude_of_vector(vector_two))
-    
-    angle_in_radians = np.arccos(value)
+	"""This function will find the angle between two vectors. It has some error checking as well. """
+	dot_product = np.dot(vector_two, vector_one)
+	
+	magnitude_one = get_magnitude_of_vector(vector_one)
+	magnitude_two = get_magnitude_of_vector(vector_two)
 
-    angle_in_degrees = np.rad2deg(angle_in_radians)
+	if magnitude_one == 0.0 or magnitude_two == 0.0:
+		raise ValueError("One or both of the vectors have zero magnitude :( ")
+	
+	value = dot_product/(magnitude_one * magnitude_two)
 
-    return angle_in_degrees
+	print(f"ANGLE BETWEEN TWO VECTORS INFO: Dot product: {dot_product}, Magnitude product: {magnitude_one * magnitude_two}, Value: {value}")
+	value = np.clip(value, -1.0, 1.0)
+	angle_in_radians = np.arccos(value)
+
+	angle_in_degrees = np.rad2deg(angle_in_radians)
+
+	return angle_in_degrees
 
 def get_magnitude_of_vector(vector: tuple) -> float:
-    magnitude = np.sqrt(np.square(vector[0]) + np.square(vector[1]) + np.square(vector[2]))
-    return magnitude
+	magnitude = np.sqrt(np.square(vector[0]) + np.square(vector[1]) + np.square(vector[2]))
+	return magnitude
 
 def calc_centroid_from_points(point_array: np.array) -> np.array: #TODO test the crap out of this function
-     #This library will find the smallest polygon that encompasses
-     # the 3d points and find the centroids based on that
-     # we may consider flattening the data before finding the centroid...
-     # but it may not matter.
+	 #This library will find the smallest polygon that encompasses
+	 # the 3d points and find the centroids based on that
+	 # we may consider flattening the data before finding the centroid...
+	 # but it may not matter.
 	hull = ConvexHull(point_array)
-    
+	
 	hull_vertices = point_array[hull.vertices]
-    
+	
 	centroid = np.mean(hull_vertices, axis=0)
 	 
 	return centroid
 
 def calc_normal_vector_and_bestfit_plane(point_array: np.array) -> np.array: #TODO test this function more
-     
+	 
 	plane_of_best_fit = Plane.best_fit(point_array)
 	normal_vector = plane_of_best_fit.normal
-    
+	
 	return normal_vector, plane_of_best_fit
 
 def write_list_dicts_to_json(list_of_dicts: dict, filename: str) -> None: #NOT TESTED WITH PY TEST
-    
-    with open(filename, 'w') as json_file:
-                json.dump(list_of_dicts, json_file, indent=4)
+	
+	with open(filename, 'w') as json_file:
+				json.dump(list_of_dicts, json_file, indent=4)
 
 def get_dict_from_json(json_filename: str, directory: str = None) -> dict: #NOT TESTED WITH PY TEST
-    
-    # If a directory is provided, join it with the filename to create the full path
-    if directory:
-        file_path = os.path.join(directory, json_filename)
-    else:
-        # Default to the current working directory if no directory is provided
-        file_path = json_filename
+	
+	# If a directory is provided, join it with the filename to create the full path
+	if directory:
+		file_path = os.path.join(directory, json_filename)
+	else:
+		# Default to the current working directory if no directory is provided
+		file_path = json_filename
 
-    # Open and load the JSON file from the constructed file path
-    with open(file_path, 'r') as json_file:
-        data_from_json = json.load(json_file)
+	# Open and load the JSON file from the constructed file path
+	with open(file_path, 'r') as json_file:
+		data_from_json = json.load(json_file)
 
-    return data_from_json
+	return data_from_json
 
 def remove_outliers_ransac(points: np.array) -> np.array:
 
-    # Initialize RANSAC for plane fitting
-    plane_ransac = pyransac3d.Plane()
+	# Initialize RANSAC for plane fitting
+	plane_ransac = pyransac3d.Plane()
 
-    # Fit a plane to the data points
-    equation_for_plane, inliers = plane_ransac.fit(points, thresh=.01, maxIteration=1000)
+	# Fit a plane to the data points
+	equation_for_plane, inliers = plane_ransac.fit(points, thresh=.01, maxIteration=1000)
 
-    # Get the outliers
-    outliers = np.setdiff1d(np.arange(points.shape[0]), inliers)
-    boolean_mask = np.zeros(points.shape[0],dtype=bool)
-    boolean_mask[inliers] = True
-    boolean_mask[outliers] = False
+	# Get the outliers
+	outliers = np.setdiff1d(np.arange(points.shape[0]), inliers)
+	boolean_mask = np.zeros(points.shape[0],dtype=bool)
+	boolean_mask[inliers] = True
+	boolean_mask[outliers] = False
 
-    return boolean_mask
+	return boolean_mask
 
 def identify_clusters_Kmeans(data: np.array, amount_clusters: int, return_centroids: bool = False) -> np.array: # TODO test this function
 	
-    kmeans = KMeans(n_clusters=amount_clusters)
-    
-    # Perform clustering
-    cluster_mask = kmeans.fit_predict(data)
-    
-    # Conditionally return centroids
-    if return_centroids:
-        centroids = kmeans.cluster_centers_
-        return cluster_mask, centroids
-    else:
-        return cluster_mask
+	kmeans = KMeans(n_clusters=amount_clusters)
+	
+	# Perform clustering
+	cluster_mask = kmeans.fit_predict(data)
+	
+	# Conditionally return centroids
+	if return_centroids:
+		centroids = kmeans.cluster_centers_
+		return cluster_mask, centroids
+	else:
+		return cluster_mask
 
 
 # # TODO: implement original clustering algorithm in 3d space (without projection)
@@ -182,7 +190,7 @@ def get_clusters(point_cloud, best_fit_plane, n_clusters, cluster_similarity=2.5
 	# #centroids = km_model.cluster_centers_
 
 	# return labels, centroids, trans_proj_cloud
-     pass
+	 pass
 
 # This is used by k-means to help create projections
 def generate_orthonormal_basis(plane, seed=None):
@@ -214,7 +222,7 @@ def generate_orthonormal_basis(plane, seed=None):
 	# basis_vector_2 = skobj.Vector(np.cross(plane_norm, basis_vector_1)).unit()
 	
 	# return basis_vector_1, basis_vector_2
-    pass
+	pass
 
 
 

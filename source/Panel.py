@@ -23,7 +23,7 @@ class Panel:
     def __getattribute__(self, best_fit_plane: np.array) -> Any:
         return super().__getattribute__(best_fit_plane)
     
-    def get_data_as_dict(self) -> dict:
+    def get_data_as_dict(self) -> dict: #FIXME this function is breaking the write_list_dicts_to_json function in utilities
         return {
             'name': self.panel_name,
             'normal vector': self.normal_unit_vector.tolist(),  # Convert numpy array to list so that json likes it

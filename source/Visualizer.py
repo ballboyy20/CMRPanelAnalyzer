@@ -18,6 +18,7 @@ class Visualizer:
                 ax.text(centroid[0], centroid[1], centroid[2], f'Cluster {i}', color='black', fontsize=self.font_size)
 
         self._set_axes_labels(ax, 'Clusters separated by color')
+        self._set_view(ax)
         plt.show()
 
     def plot_outliers_and_inliers_together(self, outlier_points: np.ndarray, inlier_points: np.array, first_color: str='red', second_color: str='blue') -> None:
@@ -28,6 +29,7 @@ class Visualizer:
         ax.scatter(inlier_points[:, 0], inlier_points[:, 1], inlier_points[:, 2], c=second_color, s=10, label='Inliers')
 
         self._set_axes_labels(ax)
+        self._set_view(ax) 
         plt.legend()
         plt.show()
 
@@ -38,6 +40,7 @@ class Visualizer:
         ax.scatter(points[:, 0], points[:, 1], points[:, 2], c='cyan', s=50, alpha=0.6)
 
         self._set_axes_labels(ax, 'Plot of 3D points')
+        self._set_view(ax)
         plt.show()
 
     def _create_3d_figure(self) -> plt.Figure:
@@ -55,7 +58,12 @@ class Visualizer:
 
         if title:
             ax.set_title(title)
-
         # ax.set_xlim([np.min(ax.collections[0]._offsets3d[0]), np.max(ax.collections[0]._offsets3d[0])])
         # ax.set_ylim([np.min(ax.collections[0]._offsets3d[1]), np.max(ax.collections[0]._offsets3d[1])])
         # ax.set_zlim([np.min(ax.collections[0]._offsets3d[2]), np.max(ax.collections[0]._offsets3d[2])])
+
+    def _set_view(self, ax: Axes3D) -> None: 
+        # Set view to the x-y plane
+        ax.view_init(0,0,0)
+        # use this webstie to adjust this
+        # https://matplotlib.org/stable/api/toolkits/mplot3d/view_angles.html

@@ -2,7 +2,8 @@ from source.Panel import Panel
 from typing import List, Tuple, Union
 import os
 from source.Scan import Scan
-from source.utilities import * 
+from source.utilities import *
+import numpy as np 
 
 
 class Array:
@@ -21,6 +22,16 @@ class Array:
                                         centroid: Union[np.array,Tuple[float, float, float]]):
         raw_panel = Panel(name, vector, best_fit_plane, centroid)
         self.add_panel(raw_panel)
+    
+    def add_panels_from_3DScan(self,scan_object: Scan) -> None: #TODO add error handling, make sure that the Scan passed in actually has data, also consider moving this to the constructor
+        '''Takes 3D scan object and creates panels from its data'''
+
+        for cluster_name, cluster_array in scan_object.get_clusters():
+            
+            temp_panel_centroid = calc_centroid_from_points(cluster_array) #TODO implement function
+            temp_panel_normal_vector, temp_best_fit_plane = calc_normal_vector_and_bestfit_plane(cluster_array) #TODO implement function
+
+            self.add_raw_panel(cluster_name, temp_panel_normal_vector,temp_best_fit_plane, temp_panel_centroid)
 
     def count_panels(self) -> int:
         return len(self.list_of_panels)
@@ -37,14 +48,12 @@ class Array:
 
         return angle_between_panels
     
-    def add_panels_from_3DScan(self,scan_object: Scan) -> None: #TODO add error handling, make sure that the Scan passed in actually has data, also consider moving this to the constructor
-        '''Takes 3D scan object and creates panels from its data'''
-        for cluster_name, cluster_array in scan_object.get_clusters():
-            
-            temp_panel_centroid = calc_centroid_from_points(cluster_array) #TODO implement function
-            temp_panel_normal_vector, temp_best_fit_plane = calc_normal_vector_and_bestfit_plane(cluster_array) #TODO implement function
-
-            self.add_raw_panel(cluster_name, temp_panel_normal_vector,temp_best_fit_plane, temp_panel_centroid)
+    
+    
+    
+    
+    
+    
     
     def panels_to_json(self, filename: str, json_save_directory: str = None ) -> None:
 
