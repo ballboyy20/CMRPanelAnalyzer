@@ -30,7 +30,7 @@ class Array:
             
             temp_panel_centroid = calc_centroid_from_points(cluster_array) #TODO implement function
             temp_panel_normal_vector, temp_best_fit_plane = calc_normal_vector_and_bestfit_plane(cluster_array) #TODO implement function
-
+            
             self.add_raw_panel(cluster_name, temp_panel_normal_vector,temp_best_fit_plane, temp_panel_centroid)
 
     def count_panels(self) -> int:

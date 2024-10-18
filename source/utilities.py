@@ -49,9 +49,12 @@ def calc_centroid_from_points(point_array: np.array) -> np.array: #TODO test the
 
 def calc_normal_vector_and_bestfit_plane(point_array: np.array) -> np.array: #TODO test this function more
 	 
-	plane_of_best_fit = Plane.best_fit(point_array)
+	plane_of_best_fit = Plane.best_fit(point_array) # This is what spikes the memory
 	normal_vector = plane_of_best_fit.normal
 	
+	print(plane_of_best_fit)
+	
+
 	return normal_vector, plane_of_best_fit
 
 def write_list_dicts_to_json(list_of_dicts: dict, filename: str) -> None: #NOT TESTED WITH PY TEST
@@ -74,21 +77,28 @@ def get_dict_from_json(json_filename: str, directory: str = None) -> dict: #NOT 
 
 	return data_from_json
 
-def remove_outliers_ransac(points: np.array) -> np.array:
-
-	# Initialize RANSAC for plane fitting
+def remove_outliers_ransac(points: np.array, return_plane_equation: bool = False) -> np.array:
+	
 	plane_ransac = pyransac3d.Plane()
 
-	# Fit a plane to the data points
-	equation_for_plane, inliers = plane_ransac.fit(points, thresh=.01, maxIteration=1000)
+	
+	equation_for_plane, inliers = plane_ransac.fit(points, thresh=0.01, maxIteration=1000)
+	print(equation_for_plane)
 
-	# Get the outliers
+	
 	outliers = np.setdiff1d(np.arange(points.shape[0]), inliers)
-	boolean_mask = np.zeros(points.shape[0],dtype=bool)
+	boolean_mask = np.zeros(points.shape[0], dtype=bool)
 	boolean_mask[inliers] = True
 	boolean_mask[outliers] = False
 
-	return boolean_mask
+	#TODO delete this later
+	#print(type(equation_for_plane))
+
+	# Return the boolean mask and optionally the equation for the plane
+	if return_plane_equation:
+		return boolean_mask, equation_for_plane
+	else:
+		return boolean_mask
 
 def identify_clusters_Kmeans(data: np.array, amount_clusters: int, return_centroids: bool = False) -> np.array: # TODO test this function
 	

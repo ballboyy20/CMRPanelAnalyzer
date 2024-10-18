@@ -48,6 +48,25 @@ def test_remove_outliars_ransac1(): # TODO test ransac a lot more.
 
     #pytest.fail('Test me more')
 
+def test_remove_outliars_ransac2(): # TODO test ransac a lot more. 
+    # Create a random dataset
+    points = create_random_dataset()
+
+    """the ransac function begins to fail when z > 0.01
+    Basically its needs to see a really tight range of z values or else it won't
+    recognize the plane as a plane. 
+    
+    This may be an issue for us"""
+    
+    # Get the boolean map for inliers
+    inlier_map, equation_for_plane = remove_outliers_ransac(points, return_plane_equation=True)
+    
+    assert len(equation_for_plane) == 4, f"Expected 4 points in the plane equation, got something else"
+    
+    # assert isinstance(equation_for_plane, np.ndarray), f"Plane equation was not a numpy array"
+
+    #pytest.fail('Test me more')
+
 def test_kmeans_clustering():
     # Create a dataset manually
     data = np.array([

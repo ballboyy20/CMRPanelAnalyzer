@@ -65,5 +65,13 @@ class Visualizer:
     def _set_view(self, ax: Axes3D) -> None: 
         # Set view to the x-y plane
         ax.view_init(90,-90,0)
-        # use this webstie to adjust this
-        # https://matplotlib.org/stable/api/toolkits/mplot3d/view_angles.html
+        '''use this webstie to adjust this
+         https://matplotlib.org/stable/api/toolkits/mplot3d/view_angles.html
+
+         XY = 90, -90, 0
+         XZ = 0, -90, 0
+         YZ = 0,0,0
+         -XZ = 0,90,0
+         -YZ = 0,180,0
+         -XZ = -90, -90, 0
+        '''
