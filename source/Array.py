@@ -36,8 +36,8 @@ class Array:
     def count_panels(self) -> int:
         return len(self.list_of_panels)
 
-    def compare_two_panels(self, first_panel_to_be_compared: int, second_panel_to_be_compared: int) -> float: # TODO make this do something with two panels
-        
+    def compare_two_panels(self, first_panel_to_be_compared: int, second_panel_to_be_compared: int) -> float:
+        #TODO add error handling to make sure that panels choosen by the user actually exist
         panel_one = self.list_of_panels[first_panel_to_be_compared]
         panel_two = self.list_of_panels[second_panel_to_be_compared]
 

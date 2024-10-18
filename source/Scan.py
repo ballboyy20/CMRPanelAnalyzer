@@ -94,22 +94,20 @@ class Scan:
         if len(self.array_of_3D_points) != len(self.point_outlier_exclusion):
             raise ValueError("Mismatch between array_of_3D_points and point_outlier_exclusion lengths.")
     
-        outliers = self.array_of_3D_points[~self.point_outlier_exclusion, :] #FIXME should we make this a view instead of a copy?
-        inliers = self.array_of_3D_points[self.point_outlier_exclusion, :]
+        self.scan_visualizer.plot_outliers_and_inliers_together(
+        self.array_of_3D_points[~self.point_outlier_exclusion, :],  # View of outliers
+        self.array_of_3D_points[self.point_outlier_exclusion, :])    # View of inliers
 
-        self.scan_visualizer.plot_outliers_and_inliers_together(outliers, inliers)
 
     def visualize_clean_clusters(self):
-        """This will plot the clusters without the outliers"""
+        """This will plot the clusters without the outliers."""
+        # Error handling
         if self.array_of_3D_points is None:
             raise ValueError("Some things need to happen before you can execute this function. array_of_3D_points is None")
         if self.point_outlier_exclusion is None:
-            raise ValueError("Some things need to happen before you can execute this function. point_outlier_exlcusion is None")
+            raise ValueError("Some things need to happen before you can execute this function. point_outlier_exclusion is None")
         
-        inliers = self.array_of_3D_points[self.point_outlier_exclusion,:]
-        inlier_map = self.cluster_map[self.point_outlier_exclusion]
-
-        # a = len(inliers)
-        # b = len(self.cluster_map[self.point_outlier_exclusion])
-
-        self.scan_visualizer.scatter_plot_clusters_different_colors(inliers,inlier_map)
+        # Use views (which are already happening with slicing)
+        self.scan_visualizer.scatter_plot_clusters_different_colors(
+            self.array_of_3D_points[self.point_outlier_exclusion, :],   # View of inliers
+            self.cluster_map[self.point_outlier_exclusion])            # View of inlier map
