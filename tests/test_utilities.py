@@ -62,8 +62,7 @@ def test_remove_outliars_ransac2(): # TODO test ransac a lot more.
     inlier_map, equation_for_plane = remove_outliers_ransac(points, return_plane_equation=True)
     
     assert len(equation_for_plane) == 4, f"Expected 4 points in the plane equation, got something else"
-    
-    # assert isinstance(equation_for_plane, np.ndarray), f"Plane equation was not a numpy array"
+    assert isinstance(equation_for_plane, np.ndarray), f"Plane equation was not a numpy array"
 
     #pytest.fail('Test me more')
 

@@ -25,6 +25,32 @@ def test_initialize_a_panel2():
     assert np.array_equal(test_panel.normal_unit_vector, test_normal_vector), "Normal vector does not match"
     assert np.array_equal(test_panel.panel_centroid, test_centroid), "Centroid does not match"
 
+def test_initialize_a_panel3():
+
+    panel_name = "Test Panel 3"
+    test_normal_vector = np.array([5.5, -6.5, 2.0])
+    test_centroid = np.array([0.0, 0.0, 0.0])
+    expected_plane_equation = np.array([4.0, 5.0, 6.0, 600])
+
+    test_panel = Panel(panel_name, test_normal_vector, expected_plane_equation, test_centroid)
+
+    assert test_panel.panel_name == panel_name, "Panel name does not match"
+    assert np.array_equal(test_panel.normal_unit_vector, test_normal_vector), "Normal vector does not match"
+    assert np.array_equal(test_panel.panel_centroid, test_centroid), "Centroid does not match"
+    assert np.array_equal(test_panel.plane_equation,expected_plane_equation), "Plane Equation does not match"
+
+def test_initialize_a_panel4():
+
+    panel_name = "Test Panel 4"
+    expected_plane_equation = np.array([4.0, 5.0, 6.0, 600])
+    expected_normal_vector = np.array([expected_plane_equation[0],expected_plane_equation[1],expected_plane_equation[2]])
+
+    test_panel = Panel(panel_name, plane_equation=expected_plane_equation)
+
+    assert test_panel.panel_name == panel_name, "Panel name does not match"
+    assert np.array_equal(test_panel.normal_unit_vector, expected_normal_vector), "Normal vector does not match"
+    assert np.array_equal(test_panel.plane_equation,expected_plane_equation), "Plane Equation does not match"
+
 def test_get_data_as_dict():
 
     expected_vector = (1.0, 2.0, 3.0)

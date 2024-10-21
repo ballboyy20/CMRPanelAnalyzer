@@ -83,16 +83,13 @@ def remove_outliers_ransac(points: np.array, return_plane_equation: bool = False
 
 	
 	equation_for_plane, inliers = plane_ransac.fit(points, thresh=0.01, maxIteration=1000)
-	print(equation_for_plane)
-
+	
+	equation_for_plane = np.array(equation_for_plane)
 	
 	outliers = np.setdiff1d(np.arange(points.shape[0]), inliers)
 	boolean_mask = np.zeros(points.shape[0], dtype=bool)
 	boolean_mask[inliers] = True
 	boolean_mask[outliers] = False
-
-	#TODO delete this later
-	#print(type(equation_for_plane))
 
 	# Return the boolean mask and optionally the equation for the plane
 	if return_plane_equation:

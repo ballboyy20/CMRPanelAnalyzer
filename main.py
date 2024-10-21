@@ -34,7 +34,7 @@ sandbox_scan.visualize_clean_clusters()
 sandbox_array = Array()
 sandbox_array.add_panels_from_3DScan(sandbox_scan)
 
-#angle = sandbox_array.compare_two_panels(1,0)
+angle = sandbox_array.compare_two_panels(1,0)
 #print(angle)
 
 

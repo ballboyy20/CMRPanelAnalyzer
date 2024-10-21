@@ -10,6 +10,7 @@ class Scan:
         self.scan_filepath = scan_filepath
         self.amount_clusters = amount_of_clusters
         self.array_of_3D_points = None
+        self.plane_equations = np.zeros((amount_of_clusters, 4)) # this is four becuase an equation for a plane has 4 coefs
         self.face_list = None
         self.cluster_map = None
         self.point_outlier_exclusion = None
@@ -57,7 +58,10 @@ class Scan:
             points_in_cluster = self.array_of_3D_points[cluster_inlier_mask]
             
             # Remove outliers using RANSAC for this cluster
-            cluster_outlier_mask = remove_outliers_ransac(points_in_cluster)
+            cluster_outlier_mask, plane_equation = remove_outliers_ransac(points_in_cluster, return_plane_equation=True)
+            
+            # Grab the plane equation output from remove_outliers_ransac and store it to the class attribute
+            self.plane_equations[i] = plane_equation
             
             # Update point_outlier_exclusion for the current cluster
             # Only update the relevant indices in point_outlier_exclusion
@@ -71,8 +75,8 @@ class Scan:
         for cluster_label in np.unique(self.cluster_map):
             temp_cluster_mask = (self.cluster_map == cluster_label)
             temp_cluster_inliers = self.point_outlier_exclusion & temp_cluster_mask
-            yield cluster_label, self.array_of_3D_points[temp_cluster_inliers]
-            
+            #yield cluster_label, self.array_of_3D_points[temp_cluster_inliers], self.plane_equations[cluster_label]
+            yield cluster_label, self.plane_equations
 
     def get_individual_cluster(self, cluster: int) ->np.array:
 

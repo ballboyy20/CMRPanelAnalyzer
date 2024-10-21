@@ -3,33 +3,33 @@ from test_utilities import create_random_panel
 import random
 
 def test_creating_a_list_Panel():
-    test_panel1 = create_random_panel()
-    test_panel2 = create_random_panel()
-    test_panel3 = create_random_panel()
+	test_panel1 = create_random_panel()
+	test_panel2 = create_random_panel()
+	test_panel3 = create_random_panel()
 
-    test_array = Array()
+	test_array = Array()
 
-    test_array.add_panel(test_panel1)
-    test_array.add_panel(test_panel2)
-    test_array.add_panel(test_panel3)
+	test_array.add_panel(test_panel1)
+	test_array.add_panel(test_panel2)
+	test_array.add_panel(test_panel3)
 
-    assert test_array.count_panels() == 3
-    
+	assert test_array.count_panels() == 3
+	
 def test_add_raw_panel():
-    name = 'raw panel'
-    normal_vector = (random.uniform(0.0, 10.0), 
-                     random.uniform(0.0, 10.0), 
-                     random.uniform(0.0, 10.0))
-    
-    centroid = (random.uniform(0.0, 10.0), 
-                random.uniform(0.0, 10.0), 
-                random.uniform(0.0, 10.0))
-    test_array = Array()
-    test_array.add_raw_panel(name,normal_vector,centroid)
-    amount_of_panels = test_array.count_panels()
+	name = 'raw panel'
+	normal_vector = (random.uniform(0.0, 10.0), 
+					 random.uniform(0.0, 10.0), 
+					 random.uniform(0.0, 10.0))
+	
+	centroid = (random.uniform(0.0, 10.0), 
+				random.uniform(0.0, 10.0), 
+				random.uniform(0.0, 10.0))
+	test_array = Array()
+	test_array.add_raw_panel(name,normal_vector,centroid)
+	amount_of_panels = test_array.count_panels()
 
-    assert amount_of_panels == 1
-    
+	assert amount_of_panels == 1
+	
 
 
 # def test_panels_to_json_and_read():

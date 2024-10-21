@@ -16,31 +16,32 @@ class Array:
     
     def add_panel(self, panel: Panel) -> None:
         self.list_of_panels.append(panel) # Add a Panel obeject to the list of Panels
-
-    def add_raw_panel(self, name: str, vector: Union[np.array, Tuple[float, float, float]], 
-                                        best_fit_plane: Union[np.array, Tuple[float, float, float]],
-                                        centroid: Union[np.array,Tuple[float, float, float]]):
-        raw_panel = Panel(name, vector, best_fit_plane, centroid)
-        self.add_panel(raw_panel)
     
     def add_panels_from_3DScan(self,scan_object: Scan) -> None: #TODO add error handling, make sure that the Scan passed in actually has data, also consider moving this to the constructor
         '''Takes 3D scan object and creates panels from its data'''
 
-        for cluster_name, cluster_array in scan_object.get_clusters():
+        for cluster_name, cluster_plane_equation in scan_object.get_clusters():
             
-            temp_panel_centroid = calc_centroid_from_points(cluster_array) #TODO implement function
-            temp_panel_normal_vector, temp_best_fit_plane = calc_normal_vector_and_bestfit_plane(cluster_array) #TODO implement function
-            
-            self.add_raw_panel(cluster_name, temp_panel_normal_vector,temp_best_fit_plane, temp_panel_centroid)
+            temp_plane_equation = cluster_plane_equation
+            temp_panel = Panel(name=cluster_name, plane_equation= temp_plane_equation)
+            self.add_panel(temp_panel)
 
     def count_panels(self) -> int:
         return len(self.list_of_panels)
 
     def compare_two_panels(self, first_panel_to_be_compared: int, second_panel_to_be_compared: int) -> float:
-        #TODO add error handling to make sure that panels choosen by the user actually exist
+        
+        if first_panel_to_be_compared > len(self.list_of_panels) or second_panel_to_be_compared > len(self.list_of_panels):
+            raise ValueError("You are trying to compare two panels that are not in the array. Try increasing your cluster amount")
+        
         panel_one = self.list_of_panels[first_panel_to_be_compared]
         panel_two = self.list_of_panels[second_panel_to_be_compared]
 
+
+        # Ensure both vectors are 1D arrays of length 3
+        if vector_one.shape != (3,) or vector_two.shape != (3,):
+            raise ValueError("Normal vectors must have 3 elements")
+        
         vector_one = panel_one.normal_unit_vector
         vector_two = panel_two.normal_unit_vector
 
