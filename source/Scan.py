@@ -76,7 +76,7 @@ class Scan:
             temp_cluster_mask = (self.cluster_map == cluster_label)
             temp_cluster_inliers = self.point_outlier_exclusion & temp_cluster_mask
             #yield cluster_label, self.array_of_3D_points[temp_cluster_inliers], self.plane_equations[cluster_label]
-            yield cluster_label, self.plane_equations
+            yield cluster_label, self.plane_equations[cluster_label]
 
     def get_individual_cluster(self, cluster: int) ->np.array:
 

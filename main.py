@@ -28,13 +28,20 @@ my_vis = Visualizer()
 
 sandbox_scan.create_clusters()
 sandbox_scan.remove_outliers_from_each_cluster()
-sandbox_scan.visualize_clusters()
-sandbox_scan.visualize_clean_clusters()
+# sandbox_scan.visualize_clusters()
+# sandbox_scan.visualize_clean_clusters()
+for cluster_name, cluster_plane_equation in sandbox_scan.get_clusters():
+    print(cluster_name)
+    print("/n")
+    print(cluster_plane_equation)
 
-sandbox_array = Array()
-sandbox_array.add_panels_from_3DScan(sandbox_scan)
 
-angle = sandbox_array.compare_two_panels(1,0)
+
+
+# sandbox_array = Array()
+# sandbox_array.add_panels_from_3DScan(sandbox_scan)
+
+# angle = sandbox_array.compare_two_panels(1,0)
 #print(angle)
 
 
