@@ -1,8 +1,8 @@
-from source.Panel import Panel
+from Panel import Panel
 from typing import List, Tuple, Union
 import os
-from source.Scan import Scan
-from source.utilities import *
+from Scan import Scan
+from utilities import *
 import numpy as np 
 
 

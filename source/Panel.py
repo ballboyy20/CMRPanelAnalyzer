@@ -48,3 +48,13 @@ class Panel:
         A, B, C, D = self.plane_equation
         equation_str = f"({A})x + ({B})y + ({C})z + {D} = 0"
         return equation_str
+    
+    def normal_vector_string(self) -> str:
+        '''Create a string in the form of (X,Y,Z)'''
+
+        if self.plane_equation is None:
+            return "normal vector is not defined."
+
+        X, Y, Z = self.normal_unit_vector
+        vecotr_str = f" The normal unit vector for this panel is ({X},{Y},{Z})"
+        return vecotr_str

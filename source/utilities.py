@@ -1,5 +1,5 @@
 import numpy as np
-from source.Panel import Panel
+from Panel import Panel
 from skspatial.objects import Plane
 from scipy.spatial import ConvexHull
 import pyransac3d
