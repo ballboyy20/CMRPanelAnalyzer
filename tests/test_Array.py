@@ -1,4 +1,5 @@
 from source.Array import *
+from source.Panel import Panel
 from test_utilities import create_random_panel
 import random
 
@@ -29,6 +30,19 @@ def test_add_raw_panel():
 	amount_of_panels = test_array.count_panels()
 
 	assert amount_of_panels == 1
+
+def test_compare_two_panels():
+	plane_equation_one = [1,1,0,0]
+	plane_equation_two = [0,0,1,7]
+
+	test_panel_one = Panel(name=0,plane_equation=plane_equation_one)
+	test_panel_two = Panel(name=1,plane_equation=plane_equation_two)
+
+	test_array = Array()
+	test_array.add_panel(test_panel_one)
+	test_array.add_panel(test_panel_two)
+
+	test_array.compare_two_panels(0,1)
 	
 
 

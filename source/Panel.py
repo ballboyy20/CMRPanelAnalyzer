@@ -11,7 +11,7 @@ class Panel:
         if plane_equation is not None and len(plane_equation) != 4:
             raise ValueError("Plane equation passed into panel instance must have exactly 4 values: (A, B, C, D)")
         
-        # Check is centroid has 3 values 
+        # Check if centroid has 3 values 
         if centroid is not None and len(centroid) != 3:
             raise ValueError("Centroid passed into panel instance must have exactly 3 values")
         
@@ -46,5 +46,5 @@ class Panel:
             return "Plane equation is not defined."
 
         A, B, C, D = self.plane_equation
-        equation_str = f"{A}x + {B}y + {C}z + {D} = 0"
+        equation_str = f"({A})x + ({B})y + ({C})z + {D} = 0"
         return equation_str

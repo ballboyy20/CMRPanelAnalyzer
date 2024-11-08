@@ -37,13 +37,14 @@ class Array:
         panel_one = self.list_of_panels[first_panel_to_be_compared]
         panel_two = self.list_of_panels[second_panel_to_be_compared]
 
+        vector_one = panel_one.normal_vector
+        vector_two = panel_two.normal_vector
 
         # Ensure both vectors are 1D arrays of length 3
         if vector_one.shape != (3,) or vector_two.shape != (3,):
             raise ValueError("Normal vectors must have 3 elements")
         
-        vector_one = panel_one.normal_unit_vector
-        vector_two = panel_two.normal_unit_vector
+
 
         angle_between_panels = get_angle_between_two_vectors(vector_one, vector_two)
 

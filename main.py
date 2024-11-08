@@ -17,9 +17,9 @@ class TestScan(Scan):
 
 list_of_random_points = create_two_random_planes()
 
-file_path = "testmesh2.stl"
+file_path = "testmesh3.stl"
 
-sandbox_scan = Scan(file_path,amount_of_clusters=4)
+sandbox_scan = Scan(file_path,amount_of_clusters=2)
 sandbox_scan.extract_3D_data()
 
 my_vis = Visualizer()
@@ -30,16 +30,17 @@ sandbox_scan.create_clusters()
 sandbox_scan.remove_outliers_from_each_cluster()
 # sandbox_scan.visualize_clusters()
 # sandbox_scan.visualize_clean_clusters()
-for cluster_name, cluster_plane_equation in sandbox_scan.get_clusters():
-    print(cluster_name)
-    print("/n")
-    print(cluster_plane_equation)
+# for cluster_name, cluster_plane_equation in sandbox_scan.get_clusters():
+#     print(cluster_name)
+#     print("/n")
+#     print(cluster_plane_equation)
 
 
 
+sandbox_array = Array()
+sandbox_array.add_panels_from_3DScan(sandbox_scan)
+print(sandbox_array.list_of_panels[0].plane_equation_to_string())
 
-# sandbox_array = Array()
-# sandbox_array.add_panels_from_3DScan(sandbox_scan)
 
 # angle = sandbox_array.compare_two_panels(1,0)
 #print(angle)
