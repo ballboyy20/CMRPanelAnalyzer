@@ -1,7 +1,7 @@
 import numpy as np
 import pyvista
 from .utilities import *
-from source.Visualizer_module import Visualizer
+from .Visualizer_module import Visualizer
 
 
 class Scan:
@@ -10,7 +10,7 @@ class Scan:
         self.scan_filepath = scan_filepath
         self.amount_clusters = amount_of_clusters
         self.array_of_3D_points = None
-        self.plane_equations = np.zeros((amount_of_clusters, 4)) # this is four becuase an equation for a plane has 4 coefs
+        self.plane_equations = np.zeros((amount_of_clusters, 4)) # this is four becuase an equation for a plane has 4 coefs, A, B, C, D
         self.face_list = None
         self.cluster_map = None
         self.point_outlier_exclusion = None

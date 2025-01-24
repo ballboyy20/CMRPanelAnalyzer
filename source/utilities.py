@@ -1,14 +1,12 @@
 import numpy as np
-from .Panel_module import Panel
-from skspatial.objects import Plane
-from scipy.spatial import ConvexHull
 import pyransac3d
 import json
 import os
-
+from skspatial.objects import Plane
+from scipy.spatial import ConvexHull
 from sklearn.cluster import KMeans
-import skspatial.objects as skobj
-import skspatial.transformation as sktrf
+from .Panel_module import Panel # even tho it says not accessed by pylance, if I remove it, it breaks. TODO look into this.
+
 
 def get_angle_between_two_vectors(vector_one, vector_two) -> float:
 	"""This function will find the angle between two vectors. It has some error checking as well. """

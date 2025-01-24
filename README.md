@@ -12,6 +12,7 @@ Dependicies
     -pymesh - (are we actually using this? )
     -scikit-spatial
 
+A cluster is a ....* explain what a cluster is and what a cluster map is *
 
 features surrounded by ## hashtags ## are optional/extra and could be implemented after basic functionality
 

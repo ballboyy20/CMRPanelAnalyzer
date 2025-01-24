@@ -1,5 +1,6 @@
-from typing import Union, Optional
 import numpy as np
+from typing import Union, Optional
+
 
 class Panel:
     def __init__(self, name: Optional[str] = None, 
@@ -9,11 +10,11 @@ class Panel:
         
         # Check if plane_equation is provided and has exactly 4 elements
         if plane_equation is not None and len(plane_equation) != 4:
-            raise ValueError("Plane equation passed into panel instance must have exactly 4 values: (A, B, C, D)")
+            raise ValueError(" Plane equation passed into panel instance must have exactly 4 values: (A, B, C, D)")
         
         # Check if centroid has 3 values 
         if centroid is not None and len(centroid) != 3:
-            raise ValueError("Centroid passed into panel instance must have exactly 3 values")
+            raise ValueError(" Centroid passed into panel instance must have exactly 3 values")
         
         self.plane_equation = np.array(plane_equation) if plane_equation is not None else None
         self.panel_centroid = np.array(centroid) if centroid is not None else None
@@ -22,7 +23,7 @@ class Panel:
         # Set the normal vector if provided
         if normal_vector is not None:
             if len(normal_vector) != 3:
-                raise ValueError("Normal vector must have exactly 3 values: (x, y, z)")
+                raise ValueError(" Normal vector must have exactly 3 values: (x, y, z)")
             self.normal_unit_vector = np.array(normal_vector)
 
         # If normal vector is not provided but plane equation is, extract the normal vector from plane equation
@@ -43,17 +44,17 @@ class Panel:
         '''Create a string in the form of Ax + By + Cz + D = 0'''
 
         if self.plane_equation is None:
-            return "Plane equation is not defined."
+            return " Plane equation is not defined."
 
         A, B, C, D = self.plane_equation
-        equation_str = f"({A})x + ({B})y + ({C})z + {D} = 0"
-        return equation_str
+        equation_string = f"({A})x + ({B})y + ({C})z + {D} = 0"
+        return equation_string
     
     def normal_vector_string(self) -> str:
         '''Create a string in the form of (X,Y,Z)'''
 
         if self.plane_equation is None:
-            return "normal vector is not defined."
+            return " Normal vector is not defined."
 
         X, Y, Z = self.normal_unit_vector
         vecotr_str = f" The normal unit vector for this panel is ({X},{Y},{Z})"

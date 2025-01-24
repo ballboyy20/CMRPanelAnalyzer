@@ -1,9 +1,8 @@
-from .Panel_module import Panel
-from typing import List, Tuple, Union
 import os
+from .Panel_module import Panel
+from typing import List
 from .Scan_module import Scan
 from .utilities import *
-import numpy as np 
 
 
 
@@ -33,7 +32,7 @@ class Array:
     def compare_two_panels(self, first_panel_to_be_compared: int, second_panel_to_be_compared: int) -> float:
         
         if first_panel_to_be_compared > len(self.list_of_panels) or second_panel_to_be_compared > len(self.list_of_panels):
-            raise ValueError("You are trying to compare two panels that are not in the array. Try increasing your cluster amount")
+            raise ValueError(" The panel indices you have passed are bigger than the amount of panels in the array. Try increasing your cluster amount")
         
         panel_one = self.list_of_panels[first_panel_to_be_compared]
         panel_two = self.list_of_panels[second_panel_to_be_compared]
@@ -44,8 +43,6 @@ class Array:
         # Ensure both vectors are 1D arrays of length 3
         if vector_one.shape != (3,) or vector_two.shape != (3,):
             raise ValueError("Normal vectors must have 3 elements")
-        
-
 
         angle_between_panels = get_angle_between_two_vectors(vector_one, vector_two)
 
