@@ -53,11 +53,6 @@ class Array:
     
     
     
-    
-    
-    
-    
-    
     def panels_to_json(self, filename: str, json_save_directory: str = None ) -> None:
 
         #TODO make it so that the previous file is not over written...this isn't urgent
