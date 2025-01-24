@@ -9,6 +9,8 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
+# This compile on both my mac and my windows machine
+
 print('hello world')
 
 class TestScan(Scan):
