@@ -1,7 +1,7 @@
 import numpy as np
 import pyvista
-from source.utilities import *
-from source.Visualizer import Visualizer
+from .utilities import *
+from source.Visualizer_module import Visualizer
 
 
 class Scan:

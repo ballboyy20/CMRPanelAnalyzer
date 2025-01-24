@@ -1,8 +1,8 @@
-from Panel import Panel
+from .Panel_module import Panel
 from typing import List, Tuple, Union
 import os
-from Scan import Scan
-from utilities import *
+from .Scan_module import Scan
+from .utilities import *
 import numpy as np 
 
 
@@ -50,11 +50,6 @@ class Array:
         angle_between_panels = get_angle_between_two_vectors(vector_one, vector_two)
 
         return angle_between_panels
-    
-    
-    
-    
-    
     
     
     

@@ -1,12 +1,10 @@
-from Panel import Panel
-from Array import Array
-from Scan import Scan
-from tests.test_utilities import *
-from Visualizer import *
+from source import *
 import numpy as np
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+
+# This compiles on both my mac and my windows machine
 
 print('hello world')
 
@@ -26,8 +24,8 @@ my_vis = Visualizer()
 
 #my_vis.plot_3D_points(list_of_random_points)
 
-sandbox_scan.create_clusters()
-sandbox_scan.remove_outliers_from_each_cluster()
+# sandbox_scan.create_clusters()
+# sandbox_scan.remove_outliers_from_each_cluster()
 # sandbox_scan.visualize_clusters()
 # sandbox_scan.visualize_clean_clusters()
 # for cluster_name, cluster_plane_equation in sandbox_scan.get_clusters():
