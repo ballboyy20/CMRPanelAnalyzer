@@ -10,7 +10,7 @@ Dependicies
     -numpy
     -pytest
     -pymesh - (are we actually using this? )
-    -skspatial
+    -scikit-spatial
 
 
 features surrounded by ## hashtags ## are optional/extra and could be implemented after basic functionality

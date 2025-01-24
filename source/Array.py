@@ -6,6 +6,7 @@ from utilities import *
 import numpy as np 
 
 
+
 class Array:
     def __init__(self, json_filename: str = None, json_location_directory: str = None,) -> None:
         self.list_of_panels: List[Panel] = [] # Initialize an empty list of type Panel
