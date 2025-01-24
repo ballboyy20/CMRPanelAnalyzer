@@ -1,5 +1,5 @@
 from source.utilities import *
-from source.Visualizer import Visualizer
+from source.Visualizer_module import Visualizer
 import numpy as np
 
 def test_get_angle_between_two_vectors_1():

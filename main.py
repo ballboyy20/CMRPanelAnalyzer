@@ -1,8 +1,9 @@
-from Panel import Panel
-from Array import Array
-from Scan import Scan
+# from source.Panel_module import Panel
+from source.Array_module import Array
+from source.Scan_module import *
 from tests.test_utilities import *
-from Visualizer import *
+from source.Visualizer_module import *
+from source import *
 import numpy as np
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
