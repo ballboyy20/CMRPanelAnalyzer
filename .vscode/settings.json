@@ -5,3 +5,15 @@
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true
 }
+
+// The .vscode/settings.json file you provided is a simple configuration file for Python testing in Visual Studio Code. Here’s a breakdown of what it does:
+
+// Explanation of the Settings
+// 1.	python.testing.pytestArgs:
+// •	Specifies the arguments passed to pytest when running tests.
+// •	"tests" means pytest will look for test files in a folder named tests in your project directory.
+// 2.	python.testing.unittestEnabled:
+// •	Disables support for the built-in unittest framework in Python.
+// •	Set to false because you’re using pytest as your test framework.
+// 3.	python.testing.pytestEnabled:
+// •	Enables pytest as the testing framework in VS Code.
