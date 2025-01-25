@@ -10,21 +10,22 @@ class TestScan(Scan):
         super().__init__(scan_filepath=None, amount_of_clusters=amount_of_clusters)  # Call the parent constructor
         self.array_of_3D_points = data_array
 
+from tests.test_utilities import *
 list_of_random_points = create_two_random_planes()
 
-file_path = "testmesh3.stl"
+file_path = "testmesh2.stl"
 
-sandbox_scan = Scan(file_path,amount_of_clusters=2)
+sandbox_scan = Scan(file_path,amount_of_clusters=4)
 sandbox_scan.extract_3D_data()
 
 my_vis = Visualizer()
 
-# my_vis.plot_3D_points(list_of_random_points)
+my_vis.plot_3D_points(list_of_random_points)
 
 sandbox_scan.create_clusters()
 sandbox_scan.remove_outliers_from_each_cluster()
-# sandbox_scan.visualize_clusters()
-# sandbox_scan.visualize_clean_clusters()
+sandbox_scan.visualize_clusters()
+sandbox_scan.visualize_clean_clusters()
 # for cluster_name, cluster_plane_equation in sandbox_scan.get_clusters():
 #     print(cluster_name)
 #     print("/n")

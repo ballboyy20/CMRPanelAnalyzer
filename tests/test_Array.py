@@ -1,5 +1,5 @@
-from source.Array import *
-from source.Panel import Panel
+from source.Array_module import *
+from source.Panel_module import Panel
 from test_utilities import create_random_panel
 import random
 

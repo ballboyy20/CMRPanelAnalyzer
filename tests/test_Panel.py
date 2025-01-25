@@ -1,4 +1,4 @@
-from source.Panel import *
+from source.Panel_module import *
 
 def test_intialize_a_panel1():
     

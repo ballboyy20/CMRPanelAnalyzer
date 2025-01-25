@@ -1,7 +1,7 @@
 To run the test you will need to type into the command line 
 python3 -m pytest
 
-or if you have installed pytest to the correct path you can jsut type in 
+or if you have installed pytest to the correct path you can just type in 
 pytest
 
 into the command line

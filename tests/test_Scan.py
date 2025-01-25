@@ -1,9 +1,7 @@
-from source.Scan import *
+from source.Scan_module import *
 from tests.test_utilities import create_two_random_planes
 import matplotlib.pyplot as plt
 import numpy as np
-
-
 
 
 def test_get_clusters():

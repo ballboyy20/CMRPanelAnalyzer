@@ -1,4 +1,4 @@
-from source.Visualizer import *
+from source.Visualizer_module import *
 from source.utilities import *
 import numpy as np
 from tests.test_utilities import create_random_dataset
